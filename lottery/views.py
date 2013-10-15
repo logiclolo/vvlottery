@@ -37,6 +37,7 @@ def fill_presenter_data(obj):
 	tmp['name'] = obj.employee.name
 	tmp['phase'] = obj.phase
 	tmp['order'] = obj.order
+	tmp['title'] = obj.employee.title
 
 	return tmp
 

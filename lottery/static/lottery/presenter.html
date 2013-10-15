@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+<title>Presenter</title>
+<script src="angular.js"></script>
+<script src="presenter.js"></script>
+<link rel="stylesheet" type="text/css" href="global.css">
+</head>
+
+<body ng-controller="presenter_ctrl" onload="on_load()">
+<div class="content">
+<!--
+<div class="search">
+<table>
+<tr>
+<td>
+<span>輸入：</span>
+</td>
+<td>
+<input id="id_input" class="textfield" type="text" ng-model="id_input" ng-change="query_prize_id()" onchange="on_change(this)">
+</td>
+</tr>
+<tr>
+<td>
+<span>輸入獎項名稱：</span>
+</td>
+<td>
+<input id="name_input" class="textfield" type="text" ng-model="name_input" ng-change="query_prize_name()" onchange="on_change(this)">
+</td>
+</tr>
+</table>
+</div>
+-->
+<table class="{{status}}">
+<tr>
+<th>獎項</th><th>順序</th><th>抽獎人</th><th>職稱</th>
+</tr>
+<tr ng-repeat="e in presenters" class="{{e.class}}">
+<td>{{e.phase}}</td><td>{{e.order}}</td><td>{{e.name}}</td><td>{{e.title}}</td>
+</tr>
+</table>
+</div>
+<div class="footer">
+</div>
+</body>
