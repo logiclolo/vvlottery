@@ -1,0 +1,65 @@
+div#sidebar {
+	width: 20%;
+	float: left;
+}
+
+div#sidebar a {
+	display: block;
+	text-decoration: none;
+	color: #000000;
+	background-color: #F6F4F0;
+	border: solid 1px #D3D3D3;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	padding: 1px 0px 1px 2px;
+}
+
+div#sidebar a:hover {
+	background-color: #FFFFFF;
+}
+
+div#sidebar a.selected {
+	font-weight: bold;
+}
+
+span.group {
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+div#frame {
+	width: 80%;
+	float: left;
+}
+
+iframe#content_frame {
+	width: 100%;
+	border-style: none;
+	margin-left: 20px;
+}
+
+body {
+	width: 80%;
+	margin: auto;
+	background-color: #F6F4F0;
+}
+
+div.header {
+	height: 80px;
+}
+
+span.version {
+	float: right;
+	margin-right: 10px;
+	margin-top: 60px;
+}
+
+div#test {
+	border: solid 1px #D3D3D3;
+	height: 800px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>尾牙獎項查詢系統</title>
+<script src="index.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body onload="on_load()">
+	<div class="header">
+		<span>2014 年尾牙獎項查詢系統</span><span class="version">v0.01</span>
+	</div>
+	<div id="test">
+	<div id="sidebar">
+		<span class="group">查詢</span>
+		<a href="employee.html" target="content_frame">工號或姓名查詢</a>
+		<a href="prize.html" target="content_frame">獎項查詢</a>
+		<a href="presenter.html" target="content_frame">頒獎人查詢</a>
+		<span class="group">輸入</span>
+		<a href="prize_input1.html" target="content_frame">福委獎輸入</a>
+		<a href="prize_input2.html" target="content_frame">鹹魚翻身獎輸入</a>
+		<a href="prize_input3.html" target="content_frame">地獄翻身獎輸入</a>
+		<span class="group">管理</span>
+		<a href="orphan.html" target="content_frame">獎項/得獎人遺漏查詢</a>
+		<a href="prize_import.html" target="content_frame">獎項清單匯入</a>
+		<a href="employee_import.html" target="content_frame">員工名單匯入</a>
+	</div>
+	<div id="frame">
+		<iframe id="content_frame" src="employee.html" name="content_frame">
+		</iframe>
+	</div>
+	</div>
+</body>
