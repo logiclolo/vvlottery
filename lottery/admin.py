@@ -1,8 +1,9 @@
-from lottery.models import Employee, Department, Prize, Presenter
+from lottery.models import Employee, Department, Prize, Presenter, Phase
 from django.contrib import admin
 
 admin.site.register(Department)
 admin.site.register(Presenter)
+admin.site.register(Phase)
 
 class EmployeeAdmin(admin.ModelAdmin):
 	list_display = ('jobid', 'name', 'department')

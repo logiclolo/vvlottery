@@ -16,9 +16,15 @@ class Employee(models.Model):
 	def __unicode__(self):
 		return self.name
 
+class Phase(models.Model):
+	name = models.CharField(max_length = 16)
+
+	def __unicode__(self):
+		return self.name
+
 class Presenter(models.Model):
 	employee = models.OneToOneField(Employee)
-	phase = models.CharField(max_length = 16)
+	phase = models.ForeignKey(Phase, null = True)
 	order = models.IntegerField()
 
 	def __unicode__(self):
@@ -29,6 +35,8 @@ class Prize(models.Model):
 	serial = models.IntegerField()
 	winner = models.ForeignKey(Employee, null = True)
 	presenter = models.ForeignKey(Presenter, null = True)
+	phase = models.ForeignKey(Phase, null = True)
 
 	def __unicode__(self):
 		return self.name
+

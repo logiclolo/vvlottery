@@ -1,5 +1,5 @@
 # Create your views here.
-from lottery.models import Employee, Presenter, Prize
+from lottery.models import Employee, Presenter, Prize, Phase
 from django.http import HttpResponse
 from django.template import Context, loader
 import json
@@ -91,6 +91,12 @@ def prize(req):
 			tmp = Prize.objects.get(serial = req.GET['serial'])
 			list = [tmp]
 		except Prize.DoesNotExist:
+			return response_error('Not found')
+	elif 'phase' in req.GET:
+		try:
+			tmp = Phase.objects.get(name = req.GET['phase'])
+			list = tmp.prize_set.all().order_by('serial')
+		except Phase.DoesNotExist:
 			return response_error('Not found')
 	else:
 		list = Prize.objects.all().order_by('serial')
