@@ -35,6 +35,7 @@ div#frame {
 
 iframe#content_frame {
 	width: 100%;
+	height: 750px;
 	border-style: none;
 	margin-left: 20px;
 }
