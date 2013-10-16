@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html ng-app="prize_input">
+<head>
+<title>Prize input 1</title>
+<script src="angular.js"></script>
+<script src="angular-cookies.js"></script>
+<script src="prize_input1.js"></script>
+<link rel="stylesheet" type="text/css" href="global.css">
+</head>
+
+<body ng-controller="prize_input_ctrl">
+<div class="content">
+
+
+<table class="hasdata">
+<tr>
+<th>獎次</th><th>名稱</th><th>工號</th><th>姓名</th><th>已輸入？</th>
+</tr>
+<tr ng-repeat="e in prizes" class="{{e.class}}">
+<td>{{e.serial}}</td><td>{{e.name}}</td>
+<td>
+<input type="text" class="textfield" ng-model="e.jobid" ng-change="change(e, e.jobid)" onkeypress="on_keypress(event, this)">
+</td>
+<td>
+{{e.winner}}
+</td>
+<td>
+<input type="checkbox" ng-model="e.has_sync" ng-init="check_sync(e)" disabled>
+</td>
+</tr>
+</table>
+</div>
+<div class="footer">
+</div>
+</body>
