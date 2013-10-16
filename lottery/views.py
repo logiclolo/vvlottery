@@ -21,8 +21,10 @@ def fill_prize_data(obj):
 	tmp['serial'] = obj.serial
 	if obj.winner:
 		tmp['winner'] = obj.winner.name
+		tmp['jobid'] = obj.winner.jobid
 	else:
 		tmp['winner'] = 'N/A'
+		tmp['jobid'] = ''
 
 	if obj.presenter:
 		tmp['presenter'] = obj.presenter.name
@@ -104,6 +106,29 @@ def prize(req):
 	for i in list:
 		tmp = fill_prize_data(i)
 		data.append(tmp)	
+
+	return response_ok(data)
+
+def prize_input(req):
+	data = []
+
+	if req.method != 'POST':
+		return response_error('Invalid method');
+
+	tmp = json.loads(req.body)
+	if not 'serial' in tmp or not 'winner_jobid' in tmp:
+		return response_error('Invalid data format');
+
+	try:
+		prize = Prize.objects.get(serial = tmp['serial'])
+		winner = Employee.objects.get(jobid = tmp['winner_jobid'])
+
+		prize.winner = winner
+		prize.save()
+	except Prize.DoesNotExist:
+		return reponse_error('Prize not found')
+	except Employee.DoesNotExist:
+		return reponse_error('Employee not found')
 
 	return response_ok(data)
 
