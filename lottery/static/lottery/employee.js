@@ -31,12 +31,12 @@ function query_name(scope, http, name)
 		if (data.status == 'ok')
 		{
 			update_model(data, scope);
-			scope.status = 'hasdata';
+			scope.hasdata = true;
 		}
 		else if (data.status == 'error')
 		{
 			scope.employees = null;
-			scope.status = 'nodata';
+			scope.hasdata = false;
 		}
 	});
 }
@@ -48,19 +48,19 @@ function query_id(scope, http, id)
 		if (data.status == 'ok')
 		{
 			update_model(data, scope);
-			scope.status = 'hasdata';
+			scope.hasdata = true;
 		}
 		else if (data.status == 'error')
 		{
 			scope.employees = null;
-			scope.status = 'nodata';
+			scope.hasdata = false;
 		}
 	});
 }
 
 function employee_ctrl($scope, $http)
 {
-	$scope.status = 'nodata';
+	$scope.hasdata = false;
 	$scope.query_employee = function() {
 		var text = $scope.input
 
