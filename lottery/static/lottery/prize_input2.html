@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html ng-app="prize_input">
+<head>
+<title>Prize input 2</title>
+<script src="angular.js"></script>
+<script src="angular-cookies.js"></script>
+<script src="common.js"></script>
+<script src="prize_input.js"></script>
+<link rel="stylesheet" type="text/css" href="global.css">
+</head>
+
+<body ng-controller="prize_input_ctrl2">
+<div class="content">
+
+
+<table class="hasdata">
+<tr>
+<th>獎次</th><th>名稱</th><th>工號</th><th>姓名</th><th>已同步？</th>
+</tr>
+<tr ng-repeat="e in prizes" ng-class-odd="" ng-class-even="'even'">
+<td>{{e.serial}}</td><td>{{e.name}}</td>
+<td>
+<input type="text" class="textfield" ng-model="e.jobid" ng-change="change(e, e.jobid)" onkeypress="on_keypress(event, this)">
+</td>
+<td>
+{{e.winner}}
+</td>
+<td ng-init="check_sync(e)">
+<image src="sync.jpg" ng-show="e.has_sync">
+<image src="unsync.jpg" ng-hide="e.has_sync">
+</td>
+</tr>
+</table>
+</div>
+<div class="footer">
+</div>
+</body>
