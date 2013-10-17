@@ -7,18 +7,6 @@ function on_load()
 	document.getElementById('id_input').focus();
 }
 
-function check_jobid(jobid)
-{
-	var num = jobid.slice(2);
-	if (num.length < 3)
-		return false;
-
-	if (num.search(/\D/) >= 0)
-		return false;
-
-	return true;
-}
-
 function submit_winner(scope)
 {
 	var obj = new Object();
@@ -50,23 +38,10 @@ function on_keypress(ev, input)
 	if (!check_jobid(scope.e.jobid))
 		return;
 
+	if (scope.e.winner == 'N/A')
+		return;
+
 	submit_winner(scope);
-}
-
-function update_model(data, scope)
-{
-	var i;
-	var tmp = data.data;
-
-	for (i = 0; i < tmp.length; i++)
-	{
-		if ((i + 1) % 2 != 0)
-			tmp[i].class = '';
-		else
-			tmp[i].class = 'even';
-	}
-
-	scope.prizes = tmp;
 }
 
 function query_by_phase(scope, http, phase)
@@ -75,7 +50,7 @@ function query_by_phase(scope, http, phase)
 	success(function(data) {
 		if (data.status == 'ok')
 		{
-			update_model(data, scope);
+			scope.prizes = data.data;
 		}
 		else if (data.status == 'error')
 		{
@@ -96,26 +71,41 @@ function query_employee(scope, http, entry, id)
 	});
 }
 
-function prize_input_ctrl($scope, $http, $cookies)
+function init(scope, http, cookies, phase)
 {
-	g_http = $http;
+	g_http = http;
 
-	$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+	http.defaults.headers.post['X-CSRFToken'] = cookies.csrftoken;
 
-	query_by_phase($scope, $http, '福委獎');
+	query_by_phase(scope, http, phase);
 
-	$scope.change = function(entry, jobid) {
+	scope.change = function(entry, jobid) {
 		entry.has_sync = false;
 		entry.winner = 'N/A';
 
 		if (!check_jobid(jobid))
 			return;
 
-		query_employee($scope, $http, entry, jobid);
+		query_employee(scope, http, entry, jobid);
 	};
 
-	$scope.check_sync = function(entry) {
+	scope.check_sync = function(entry) {
 		if (entry.jobid != '')
 			entry.has_sync = true;
 	};
+}
+
+function prize_input_ctrl($scope, $http, $cookies)
+{
+	init($scope, $http, $cookies, '福委獎');
+}
+
+function prize_input_ctrl2($scope, $http, $cookies)
+{
+	init($scope, $http, $cookies, '鹹魚翻身獎');
+}
+
+function prize_input_ctrl3($scope, $http, $cookies)
+{
+	init($scope, $http, $cookies, '地獄翻身獎');
 }
