@@ -8,20 +8,26 @@ function on_change(input)
 	input.select();
 }
 
-function update_model(data, scope)
+function query_prizes(scope, http, winners)
 {
-	var i;
-	var tmp = data.data;
-
-	for (i = 0; i < tmp.length; i++)
+	for (var i = 0; i < winners.length; i++)
 	{
-		if ((i + 1) % 2 != 0)
-			tmp[i].class = '';
-		else
-			tmp[i].class = 'even';
-	}
+		var p = winners[i];
 
-	scope.employees = tmp;
+		http.get('/lottery/prize/?winner_jobid=' + p.jobid).
+		success(function(data) {
+			if (data.status == 'ok')
+			{
+				p.hasprizes = true;
+				p.prizes = data.data;
+			}
+			else
+			{
+				p.hasprizes = false;
+				p.prizes = null;
+			}
+		});
+	}
 }
 
 function query_name(scope, http, name)
@@ -30,8 +36,10 @@ function query_name(scope, http, name)
 	success(function(data) {
 		if (data.status == 'ok')
 		{
-			update_model(data, scope);
+			scope.employees = data.data;
 			scope.hasdata = true;
+
+			query_prizes(scope, http, data.data);
 		}
 		else if (data.status == 'error')
 		{
@@ -47,8 +55,10 @@ function query_id(scope, http, id)
 	success(function(data) {
 		if (data.status == 'ok')
 		{
-			update_model(data, scope);
+			scope.employees = data.data;
 			scope.hasdata = true;
+
+			query_prizes(scope, http, data.data);
 		}
 		else if (data.status == 'error')
 		{

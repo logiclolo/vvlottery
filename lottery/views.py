@@ -63,17 +63,23 @@ def employee(req):
 	data = []
 
 	if 'name' in req.GET:
-		list = Employee.objects.filter(name__contains = req.GET['name']).order_by('jobid')
-		if len(list) == 0:
+		elist = Employee.objects.filter(name__contains = req.GET['name']).order_by('jobid')
+		if len(elist) == 0:
 			return response_error('Not found')
 	elif 'id' in req.GET:
-		list = Employee.objects.filter(jobid = req.GET['id'])
-		if len(list) == 0:
+		elist = Employee.objects.filter(jobid = req.GET['id'])
+		if len(elist) == 0:
 			return response_error('Not found')
+	elif 'orphan' in req.GET:
+		elist = []
+		tmp = Employee.objects.all().order_by('jobid')
+		for p in tmp:
+			if p.prize_set.count() == 0:
+				elist.append(p)
 	else:
-		list = Employee.objects.all().order_by('jobid')
+		elist = Employee.objects.all().order_by('jobid')
 
-	for i in list:
+	for i in elist:
 		tmp = fill_employee_data(i)
 		data.append(tmp)	
 
@@ -91,19 +97,27 @@ def prize(req):
 	if 'serial' in req.GET:
 		try:
 			tmp = Prize.objects.get(serial = req.GET['serial'])
-			list = [tmp]
+			plist = [tmp]
 		except Prize.DoesNotExist:
 			return response_error('Not found')
 	elif 'phase' in req.GET:
 		try:
 			tmp = Phase.objects.get(name = req.GET['phase'])
-			list = tmp.prize_set.all().order_by('serial')
+			plist = tmp.prize_set.all().order_by('-serial')
 		except Phase.DoesNotExist:
 			return response_error('Not found')
+	elif 'orphan' in req.GET:
+		plist = Prize.objects.filter(winner__exact = None).order_by('serial')
+		if len(plist) == 0:
+			return response_error('Not found')
+	elif 'winner_jobid' in req.GET:
+		plist = Prize.objects.filter(winner__jobid__exact = req.GET['winner_jobid']).order_by('serial')
+		if len(plist) == 0:
+			return response_error('Not found')
 	else:
-		list = Prize.objects.all().order_by('serial')
+		plist = Prize.objects.all().order_by('serial')
 			
-	for i in list:
+	for i in plist:
 		tmp = fill_prize_data(i)
 		data.append(tmp)	
 

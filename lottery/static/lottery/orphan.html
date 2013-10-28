@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html ng-app="orphan">
+<head>
+<title>Orphan</title>
+<script src="angular.js"></script>
+<script src="angular-cookies.js"></script>
+<script src="common.js"></script>
+<script src="orphan.js"></script>
+<link rel="stylesheet" type="text/css" href="global.css">
+</head>
+
+<body ng-controller="orphan_ctrl">
+<div class="content">
+
+<h2>未抽獎項：{{prize_number}} 筆</h2>
+<table class="hasdata">
+<tr>
+<th>獎次</th><th>名稱</th><th>工號</th><th>姓名</th><th>已同步？</th>
+</tr>
+<tr ng-repeat="e in prizes" ng-class-odd="" ng-class-even="'even'">
+<td>{{e.serial}}</td><td>{{e.name}}</td>
+<td>
+<input type="text" class="textfield" ng-model="e.jobid" ng-change="change(e, e.jobid)" onkeypress="on_keypress(event, this)">
+</td>
+<td>
+{{e.winner}}
+</td>
+<td ng-init="check_sync(e)">
+<image src="sync.jpg" ng-show="e.has_sync">
+<image src="unsync.jpg" ng-hide="e.has_sync">
+</td>
+</tr>
+</table>
+
+<h2>未得獎員工：{{orphan_number}} 筆</h2>
+<table class="hasdata">
+<tr>
+<th>工號</th><th>姓名</th>
+</tr>
+<tr ng-repeat="p in orphans" ng-class-odd="" ng-class-even="'even'">
+<td>{{p.jobid}}</td><td>{{p.name}}</td>
+</tr>
+</table>
+</div>
+<div class="footer">
+</div>
+</body>

@@ -32,3 +32,15 @@ input.textfield {
 div.search {
 	margin-bottom: 20px;
 }
+
+.group {
+	float: left;
+	border: 1px solid #98bf21;
+	width: 90%;
+}
+
+div#prizedata {
+	margin-top: 20px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
