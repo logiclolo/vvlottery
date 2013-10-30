@@ -8,39 +8,39 @@
 </head>
 
 <body ng-controller="employee_ctrl" onload="on_load()">
-<div class="content">
-<div class="search">
-<span>輸入工號或姓名：</span>
-<input id="input" class="textfield" type="text" ng-model="input" ng-change="query_employee()" onchange="on_change(this)">
-</div>
+	<div class="content">
+		<div class="search">
+			<span>輸入工號或姓名：</span>
+			<input id="input" class="textfield" type="text" ng-model="input" ng-change="query_employee()" onchange="on_change(this)">
+		</div>
 
-<div ng-repeat="e in employees" class="group" ng-show="hasdata">
-<table>
-<tr>
-<td>工號：</td><td>{{e.jobid}}</td>
-</tr>
-<tr>
-<td>姓名：</td><td>{{e.name}}</td>
-</tr>
-<tr>
-<td>部門：</td><td>{{e.department}}</td>
-</tr>
-</table>
+		<div ng-repeat="e in employees" class="group" ng-show="hasdata">
+			<table>
+				<tr>
+					<td>工號：</td><td>{{e.jobid}}</td>
+				</tr>
+				<tr>
+					<td>姓名：</td><td>{{e.name}}</td>
+				</tr>
+				<tr>
+					<td>部門：</td><td>{{e.department}}</td>
+				</tr>
+			</table>
 
-<div id="prizedata">
-<span ng-hide="e.hasprizes">無中獎資料</span>
-<table class="hasdata" ng-show="e.hasprizes">
-<tr>
-<th>獎次</th><th>名稱</th>
-</tr>
-<tr ng-repeat="p in e.prizes" ng-class-odd="" ng-class-even="'even'">
-<td>{{p.serial}}</td><td>{{p.name}}</td>
-</tr>
-</table>
-</div>
-</div>
+			<div id="prizedata">
+				<span ng-hide="e.hasprizes">無中獎資料</span>
+				<table class="hasdata" ng-show="e.hasprizes">
+					<tr>
+						<th>獎次</th><th>名稱</th>
+					</tr>
+					<tr ng-repeat="p in e.prizes" ng-class-odd="" ng-class-even="'even'">
+						<td>{{p.serial}}</td><td>{{p.name}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 
-</div>
-<div class="footer">
-</div>
+	</div>
+	<div class="footer">
+	</div>
 </body>
