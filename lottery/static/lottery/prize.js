@@ -8,35 +8,19 @@ function on_change(input)
 	input.select();
 }
 
-function update_model(data, scope)
-{
-	var i;
-	var tmp = data.data;
-
-	for (i = 0; i < tmp.length; i++)
-	{
-		if ((i + 1) % 2 != 0)
-			tmp[i].class = '';
-		else
-			tmp[i].class = 'even';
-	}
-
-	scope.prizes = tmp;
-}
-
 function query_name(scope, http, name)
 {
 	http.get('/lottery/prize/?name=' + name).
 	success(function(data) {
 		if (data.status == 'ok')
 		{
-			update_model(data, scope);
-			scope.status = 'hasdata';
+			scope.prizes = data.data;
+			scope.hasdata = true;
 		}
 		else if (data.status == 'error')
 		{
-			scope.employees = null;
-			scope.status = 'nodata';
+			scope.prizes = null;
+			scope.hasdata = false;
 		}
 	});
 }
@@ -47,13 +31,13 @@ function query_id(scope, http, id)
 	success(function(data) {
 		if (data.status == 'ok')
 		{
-			update_model(data, scope);
-			scope.status = 'hasdata';
+			scope.prizes = data.data;
+			scope.hasdata = true;
 		}
 		else if (data.status == 'error')
 		{
-			scope.employees = null;
-			scope.status = 'nodata';
+			scope.prizes = null;
+			scope.hasdata = false;
 		}
 	});
 }

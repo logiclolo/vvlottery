@@ -21,10 +21,6 @@ table.hasdata tr.even td {
 	background-color: #eaf2d3;
 }
 
-table.nodata {
-	display: none;
-}
-
 input.textfield {
 	border: 1px solid #98bf21;
 }
