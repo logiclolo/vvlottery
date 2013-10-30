@@ -20,11 +20,22 @@ function submit_winner(scope)
 		if (data.status == 'ok')
 		{
 			scope.e.has_sync = true;
-			scope.$apply();
 		}
 		else
 			alert(data.reason);
 	});
+}
+
+function move_focus_next(input)
+{
+	var next_row = input.parentNode.parentNode.nextSibling;
+
+	if (next_row.nodeName == 'TR')
+	{
+		var next = next_row.getElementsByTagName('input')[0];
+
+		next.focus();
+	}
 }
 
 function on_keypress(ev, input)
@@ -42,6 +53,8 @@ function on_keypress(ev, input)
 		return;
 
 	submit_winner(scope);
+
+	move_focus_next(input);
 }
 
 function query_by_phase(scope, http, phase)
