@@ -10,24 +10,12 @@
 <body ng-controller="prize_ctrl" onload="on_load()">
 	<div class="content">
 		<div class="search">
-			<table>
-				<tr>
-					<td>
-						<span>輸入獎次：</span>
-					</td>
-					<td>
-						<input id="id_input" class="textfield" type="text" ng-model="id_input" ng-change="query_prize_id()" onchange="on_change(this)">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<span>輸入獎項名稱：</span>
-					</td>
-					<td>
-						<input id="name_input" class="textfield" type="text" ng-model="name_input" ng-change="query_prize_name()" onchange="on_change(this)">
-					</td>
-				</tr>
-			</table>
+			<div class="form_layout">
+				<span>輸入獎次：</span>
+				<input id="id_input" class="textfield" type="text" ng-model="id_input" ng-change="query_prize_id()" onchange="on_change(this)"><br/>
+				<span>輸入獎項名稱：</span>
+				<input id="name_input" class="textfield" type="text" ng-model="name_input" ng-change="query_prize_name()" onchange="on_change(this)"><br/>
+			</div>
 		</div>
 		<table ng-show="hasdata" class="hasdata">
 			<tr>

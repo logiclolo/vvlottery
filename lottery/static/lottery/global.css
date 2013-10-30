@@ -29,6 +29,20 @@ div.search {
 	margin-bottom: 20px;
 }
 
+div.form_layout span, div.form_layout input {
+	width: 120px;
+	float: left;
+	margin-bottom: 5px;
+}
+
+div.form_layout span {
+	padding-right: 10px;
+}
+
+div.form_layout br {
+	clear: left;
+}
+
 .group {
 	float: left;
 	border: 1px solid #98bf21;
