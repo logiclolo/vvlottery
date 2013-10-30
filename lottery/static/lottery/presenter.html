@@ -9,11 +9,12 @@
 
 <body ng-controller="presenter_ctrl" onload="on_load()">
 	<div class="content">
-		<table class="{{status}}">
+		<h2 ng-hide="hasdata">查無資料</h2>
+		<table ng-show="hasdata" class="hasdata">
 			<tr>
 				<th>獎項</th><th>順序</th><th>抽獎人</th><th>職稱</th>
 			</tr>
-			<tr ng-repeat="e in presenters" class="{{e.class}}">
+			<tr ng-repeat="e in presenters" ng-class-odd="" ng-class-even="'even'">
 				<td>{{e.phase}}</td><td>{{e.order}}</td><td>{{e.name}}</td><td>{{e.title}}</td>
 			</tr>
 		</table>

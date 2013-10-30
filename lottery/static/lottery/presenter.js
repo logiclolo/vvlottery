@@ -8,35 +8,27 @@ function on_change(input)
 	input.select();
 }
 
-function update_model(data, scope)
-{
-	var i;
-	var tmp = data.data;
-
-	for (i = 0; i < tmp.length; i++)
-	{
-		if ((i + 1) % 2 != 0)
-			tmp[i].class = '';
-		else
-			tmp[i].class = 'even';
-	}
-
-	scope.presenters = tmp;
-}
-
 function query_all(scope, http)
 {
 	http.get('/lottery/presenter/').
 	success(function(data) {
 		if (data.status == 'ok')
 		{
-			update_model(data, scope);
-			scope.status = 'hasdata';
+			if (data.data.length > 0)
+			{
+				scope.presenters = data.data;
+				scope.hasdata = true;
+			}
+			else
+			{
+				scope.presenters = null;
+				scope.hasdata = false;
+			}
 		}
 		else if (data.status == 'error')
 		{
-			scope.employees = null;
-			scope.status = 'nodata';
+			scope.presenters = null;
+			scope.hasdata = false;
 		}
 	});
 }
