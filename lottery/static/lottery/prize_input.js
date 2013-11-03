@@ -12,6 +12,7 @@ function submit_winner(scope)
 	var obj = new Object();
 	obj.serial = scope.e.serial;
 	obj.winner_jobid = scope.e.jobid;
+	obj.phase = scope.phase;
 
 	var json = angular.toJson(obj);
 
@@ -92,6 +93,7 @@ function init(scope, http, cookies, phase)
 
 	query_by_phase(scope, http, phase);
 
+	scope.phase = phase;
 	scope.change = function(entry, jobid) {
 		entry.has_sync = false;
 		entry.winner = 'N/A';
@@ -110,15 +112,15 @@ function init(scope, http, cookies, phase)
 
 function prize_input_ctrl($scope, $http, $cookies)
 {
-	init($scope, $http, $cookies, '福委獎');
+	init($scope, $http, $cookies, get_phase_name(1));
 }
 
 function prize_input_ctrl2($scope, $http, $cookies)
 {
-	init($scope, $http, $cookies, '鹹魚翻身獎');
+	init($scope, $http, $cookies, get_phase_name(2));
 }
 
 function prize_input_ctrl3($scope, $http, $cookies)
 {
-	init($scope, $http, $cookies, '地獄翻身獎');
+	init($scope, $http, $cookies, get_phase_name(3));
 }

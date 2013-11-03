@@ -19,6 +19,7 @@ def fill_prize_data(obj):
 
 	tmp['name'] = obj.name
 	tmp['serial'] = obj.serial
+	tmp['phase'] = obj.phase.name
 	if obj.winner:
 		tmp['winner'] = obj.winner.name
 		tmp['jobid'] = obj.winner.jobid
@@ -95,10 +96,8 @@ def prize(req):
 	data = []
 
 	if 'serial' in req.GET:
-		try:
-			tmp = Prize.objects.get(serial = req.GET['serial'])
-			plist = [tmp]
-		except Prize.DoesNotExist:
+		plist = Prize.objects.filter(serial = req.GET['serial'])
+		if len(plist) == 0:
 			return response_error('Not found')
 	elif 'phase' in req.GET:
 		try:
@@ -134,11 +133,11 @@ def prize_input(req):
 		return response_error('Invalid method');
 
 	tmp = json.loads(req.body)
-	if not 'serial' in tmp or not 'winner_jobid' in tmp:
+	if not 'phase' in tmp or not 'serial' in tmp or not 'winner_jobid' in tmp:
 		return response_error('Invalid data format');
 
 	try:
-		prize = Prize.objects.get(serial = tmp['serial'])
+		prize = Prize.objects.get(serial = tmp['serial'], phase__name__exact = tmp['phase'])
 		winner = Employee.objects.get(jobid = tmp['winner_jobid'])
 
 		prize.winner = winner

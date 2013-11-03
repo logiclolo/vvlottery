@@ -19,10 +19,10 @@
 		</div>
 		<table ng-show="hasdata" class="hasdata">
 			<tr>
-				<th>獎次</th><th>名稱</th><th>中獎人</th><th>抽獎人</th>
+				<th>獎次</th><th>類別</th><th>名稱</th><th>中獎人</th><th>抽獎人</th>
 			</tr>
 			<tr ng-repeat="e in prizes" ng-class-odd="" ng-class-even="'even'">
-				<td>{{e.serial}}</td><td>{{e.name}}</td><td>{{e.winner}}</td><td>{{e.presenter}}</td>
+				<td>{{e.serial}}</td><td>{{e.phase}}</td><td>{{e.name}}</td><td>{{e.winner}}</td><td>{{e.presenter}}</td>
 			</tr>
 		</table>
 	</div>

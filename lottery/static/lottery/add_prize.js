@@ -15,6 +15,8 @@ function submit_prize(scope, http, obj)
 		{
 			scope.prize_added = true;
 		}
+		else
+			alert(data.reason);
 	});
 }
 
@@ -25,9 +27,13 @@ function add_prize_ctrl($scope, $http, $cookies)
 	$scope.add_prize = function () {
 		var obj = new Object();
 
-		obj.phase = '2';
+		obj.phase = get_phase_name(2);
 		obj.name = $scope.donator + ":" + $scope.prize_name;
 
 		submit_prize($scope, $http, obj);
+	};
+
+	$scope.input_changed = function () {
+		$scope.prize_added = false;
 	};
 }

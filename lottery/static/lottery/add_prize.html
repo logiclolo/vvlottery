@@ -4,6 +4,7 @@
 <title>Add Prize</title>
 <script src="angular.js"></script>
 <script src="angular-cookies.js"></script>
+<script src="common.js"></script>
 <script src="add_prize.js"></script>
 <link rel="stylesheet" type="text/css" href="global.css">
 </head>
@@ -12,9 +13,9 @@
 	<div class="content">
 		<div class="form_layout">
 			<span>捐贈主管：</span>
-			<input id="donator_input" class="textfield" type="text" ng-model="donator"><br/>
+			<input id="donator_input" class="textfield" type="text" ng-model="donator" ng-change="input_changed()"><br/>
 			<span>獎項名稱：</span>
-			<input id="prize_name_input" class="textfield" type="text" ng-model="prize_name"><br/>
+			<input id="prize_name_input" class="textfield" type="text" ng-model="prize_name" ng-change="input_changed()"><br/>
 		</div>
 		<input type="button" ng-click="add_prize()" value="新增"/><br/>
 		<span ng-show="prize_added">新增成功</span>

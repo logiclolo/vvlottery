@@ -10,3 +10,14 @@ function check_jobid(jobid)
 	return true;
 }
 
+function get_phase_name(phase)
+{
+	if (phase == 1)
+		return '福委獎';
+	else if (phase == 2)
+		return '鹹魚翻身獎';
+	else if (phase == 3)
+		return '地獄翻身獎';
+	else
+		return null;
+}
