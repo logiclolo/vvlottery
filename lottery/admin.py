@@ -12,7 +12,8 @@ class EmployeeAdmin(admin.ModelAdmin):
 admin.site.register(Employee, EmployeeAdmin)
 
 class PrizeAdmin(admin.ModelAdmin):
-	list_display = ('serial', 'name', 'winner', 'presenter')
+	list_display = ('phase', 'serial', 'name', 'winner', 'presenter')
 	search_fields = ['serial', 'name']
+	list_filter = ['phase']
 
 admin.site.register(Prize, PrizeAdmin)
