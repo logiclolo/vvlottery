@@ -7,6 +7,7 @@ function submit_winner(scope)
 	var obj = new Object();
 	obj.serial = scope.e.serial;
 	obj.winner_jobid = scope.e.jobid;
+	obj.phase = scope.e.phase;
 
 	var json = angular.toJson(obj);
 
@@ -15,7 +16,6 @@ function submit_winner(scope)
 		if (data.status == 'ok')
 		{
 			scope.e.has_sync = true;
-			scope.$apply();
 		}
 		else
 			alert(data.reason);
