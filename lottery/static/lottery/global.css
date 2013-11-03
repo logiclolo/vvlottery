@@ -39,6 +39,10 @@ div.form_layout span, div.form_layout input {
 	margin-bottom: 5px;
 }
 
+div.form_layout input {
+	width: 200px;
+}
+
 div.form_layout span {
 	padding-right: 10px;
 }
