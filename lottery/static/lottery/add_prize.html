@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html ng-app="add_prize">
+<head>
+<title>Add Prize</title>
+<script src="angular.js"></script>
+<script src="angular-cookies.js"></script>
+<script src="add_prize.js"></script>
+<link rel="stylesheet" type="text/css" href="global.css">
+</head>
+
+<body ng-controller="add_prize_ctrl" onload="on_load()">
+	<div class="content">
+		<div class="form_layout">
+			<span>捐贈主管：</span>
+			<input id="donator_input" class="textfield" type="text" ng-model="donator"><br/>
+			<span>獎項名稱：</span>
+			<input id="prize_name_input" class="textfield" type="text" ng-model="prize_name"><br/>
+		</div>
+		<input type="button" ng-click="add_prize()" value="新增"/><br/>
+		<span ng-show="prize_added">新增成功</span>
+	</div>
+	<div class="footer">
+	</div>
+</body>

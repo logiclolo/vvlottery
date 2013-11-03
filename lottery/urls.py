@@ -5,5 +5,6 @@ urlpatterns = patterns('lottery.views',
     url(r'^employee_page/$', 'employee_page'),
     url(r'^prize/$', 'prize'),
     url(r'^prize_input/$', 'prize_input'),
+    url(r'^add_prize/$', 'add_prize'),
     url(r'^presenter/$', 'presenter'),
 )

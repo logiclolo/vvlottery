@@ -150,6 +150,29 @@ def prize_input(req):
 
 	return response_ok(data)
 
+def add_prize(req):
+	data = []
+
+	if req.method != 'POST':
+		return response_error('Invalid method');
+
+	tmp = json.loads(req.body)
+	if not 'phase' in tmp or not 'name' in tmp:
+		return response_error('Invalid data format');
+
+	try:
+		phase = Phase.objects.get(name = tmp['phase'])
+
+		prize = Prize()
+		prize.phase = phase
+		prize.name = tmp['name']
+		prize.serial = Prize.objects.filter(phase = phase).count() + 1
+		prize.save()
+	except Phase.DoesNotExist:
+		return reponse_error('Prize not found')
+
+	return response_ok(data)
+
 def presenter(req):
 	data = []
 
