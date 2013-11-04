@@ -92,6 +92,34 @@ def employee_page(req):
 
 	return HttpResponse(t.render(c))
 
+def prize_list(req):
+	data = []
+	idx = 0
+	length = 5
+	query_phase = False
+
+	if 'idx' in req.GET:
+		idx = int(req.GET['idx'])
+
+	if 'length' in req.GET:
+		length = int(req.GET['length'])
+
+	if 'phase' in req.GET:
+		phase = req.GET['phase']
+		query_phase = True
+
+	if query_phase:
+		plist = Prize.objects.exclude(winner__exact = None).filter(phase__name__exact = phase).order_by('-serial')
+	else:
+		plist = Prize.objects.exclude(winner__exact = None).order_by('-serial')
+	plist = plist[idx:idx + length]
+
+	for i in plist:
+		tmp = fill_prize_data(i)
+		data.append(tmp)
+
+	return response_ok(data)
+
 def prize(req):
 	data = []
 
