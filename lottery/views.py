@@ -86,12 +86,6 @@ def employee(req):
 
 	return response_ok(data)
 
-def employee_page(req):
-	t = loader.get_template('employee.html')
-	c = Context()
-
-	return HttpResponse(t.render(c))
-
 def prize_list_all(req):
 	data = []
 	query_phase = False
