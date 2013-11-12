@@ -184,9 +184,9 @@ def prize_input(req):
 		prize.winner = winner
 		prize.save()
 	except Prize.DoesNotExist:
-		return reponse_error('Prize not found')
+		return response_error('Prize not found')
 	except Employee.DoesNotExist:
-		return reponse_error('Employee not found')
+		return response_error('Employee not found')
 
 	return response_ok(data)
 
@@ -209,7 +209,7 @@ def add_prize(req):
 		prize.serial = Prize.objects.filter(phase = phase).count() + 1
 		prize.save()
 	except Phase.DoesNotExist:
-		return reponse_error('Prize not found')
+		return response_error('Prize not found')
 
 	return response_ok(data)
 
