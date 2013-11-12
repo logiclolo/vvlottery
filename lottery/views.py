@@ -2,6 +2,7 @@
 from lottery.models import Employee, Presenter, Prize, Phase
 from django.http import HttpResponse
 from django.template import Context, loader
+from django import forms
 import json
 
 def fill_employee_data(obj):
@@ -232,3 +233,28 @@ def presenter(req):
 		data.append(tmp)	
 
 	return response_ok(data)
+
+class PrizeImportForm(forms.Form):
+	file = forms.FileField()
+
+def save_file(f):
+	try:
+		of = open('/tmp/test.pdf', 'wb')
+		for chunk in f.chunks():
+			of.write(chunk)
+		of.close()
+	except IOError as e:
+		print e
+
+def prize_import(req):
+	data = []
+
+	if req.method == 'POST':
+		form = PrizeImportForm(req.POST, req.FILES)
+		if form.is_valid():
+			save_file(req.FILES['file'])
+			return response_ok(data)
+		else:
+			return response_error('Invalid form')
+	else:
+		return response_error('Invalid method')
