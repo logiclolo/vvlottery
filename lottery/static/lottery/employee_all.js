@@ -4,8 +4,16 @@ function query_employee_all(scope, http)
 	success(function(data) {
 		if (data.status == 'ok')
 		{
-			scope.employees = data.data;
-			scope.hasdata = true;
+			if (data.data.length == 0)
+			{
+				scope.employees = null;
+				scope.hasdata = false;
+			}
+			else
+			{
+				scope.employees = data.data;
+				scope.hasdata = true;
+			}
 		}
 		else if (data.status == 'error')
 		{
