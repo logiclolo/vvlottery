@@ -9,11 +9,11 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'vvlottery.settings'
 
 from lottery.models import Employee, Department, Prize, Presenter
 
-sheet = 0
+vv_sheet = 0
+va_sheet = 1
 
 def usage():
-	print 'Usage: employee_import.py <Excel file> [-n <sheet>]'
-	print '   -n <sheet>: The work sheet number (started from 0)'
+	print 'Usage: employee_import.py <Excel file>'
 
 def get_department(depart):
 	try:
@@ -84,15 +84,8 @@ if __name__ == '__main__':
 
 	excel = sys.argv[1]
 
-	if len(sys.argv) > 2:
-		if sys.argv[2] == '-n' and len(sys.argv) >= 3:
-			sheet = sys.argv[3]
-		else:
-			usage()
-			sys.exit(1)
-
-	if not employee_import(excel, 0):
+	if not employee_import(excel, vv_sheet):
 		sys.exit(1)
 
-	if not employee_import(excel, 1):
+	if not employee_import(excel, va_sheet):
 		sys.exit(1)
