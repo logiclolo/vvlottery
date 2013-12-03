@@ -84,7 +84,7 @@ function employee_ctrl($scope, $http)
 		}
 
 		var num = text.slice(2);
-		if (num.length < 3)
+		if (num.length < 4)
 			return;
 
 		if (num.search(/\D/) >= 0)
