@@ -36,6 +36,7 @@ class Prize(models.Model):
 	winner = models.ForeignKey(Employee, null = True)
 	presenter = models.ForeignKey(Presenter, null = True)
 	phase = models.ForeignKey(Phase, null = True)
+	received = models.BooleanField(default = False)
 
 	def __unicode__(self):
 		return self.name
