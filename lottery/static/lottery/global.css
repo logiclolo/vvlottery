@@ -62,3 +62,7 @@ div#prizedata {
 	margin-left: 5px;
 	margin-bottom: 5px;
 }
+
+.namefield {
+	width: 60px;
+}
