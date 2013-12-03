@@ -13,10 +13,10 @@
 		<h3 ng-hide="hasdata">無獎項資料</h3>
 		<table class="hasdata" ng-show="hasdata">
 			<tr>
-				<th>獎次</th><th>名稱</th>
+				<th>獎次</th><th>名稱</th><th>現場領？</th>
 			</tr>
 			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
-				<td>{{e.serial}}</td><td>{{e.name}}</td>
+				<td>{{p.serial}}</td><td>{{p.name}}</td><td><span ng-show="p.onsite">◎</span></td>
 			</tr>
 		</table>
 	</div>

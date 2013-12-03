@@ -21,6 +21,7 @@ def fill_prize_data(obj):
 	tmp['name'] = obj.name
 	tmp['serial'] = obj.serial
 	tmp['phase'] = obj.phase.name
+	tmp['onsite'] = obj.onsite
 	if obj.winner:
 		tmp['winner'] = obj.winner.name
 		tmp['jobid'] = obj.winner.jobid
