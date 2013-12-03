@@ -37,6 +37,7 @@ class Prize(models.Model):
 	presenter = models.ForeignKey(Presenter, null = True)
 	phase = models.ForeignKey(Phase, null = True)
 	received = models.BooleanField(default = False)
+	onsite = models.BooleanField(default = False)
 
 	def __unicode__(self):
 		return self.name
