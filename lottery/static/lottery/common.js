@@ -13,7 +13,7 @@ function check_jobid(jobid)
 function get_phase_name(phase)
 {
 	if (phase == 1)
-		return '福委獎';
+		return '員工獎';
 	else if (phase == 2)
 		return '鹹魚翻身獎';
 	else if (phase == 3)
