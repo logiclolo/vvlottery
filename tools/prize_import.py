@@ -54,9 +54,9 @@ def add_prize(row):
 	exists = False
 
 	if field == '':
-		get_on_site = True
-	else:
 		get_on_site = False
+	else:
+		get_on_site = True
 #	print '%s,%04d,%s' % ('true' if get_on_site else 'false', serial, name)
 
 	try:
