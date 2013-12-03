@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+<title>Prize all</title>
+<script src="angular.js"></script>
+<script src="prize_all.js"></script>
+<link rel="stylesheet" type="text/css" href="global.css">
+</head>
+
+<body ng-controller="prize_all_ctrl">
+	<div class="content">
+		<h3 ng-show="hasdata">共 {{prizes.length}} 筆資料</h3>
+		<h3 ng-hide="hasdata">無獎項資料</h3>
+		<table class="hasdata" ng-show="hasdata">
+			<tr>
+				<th>獎次</th><th>名稱</th>
+			</tr>
+			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
+				<td>{{e.serial}}</td><td>{{e.name}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="footer">
+	</div>
+</body>
