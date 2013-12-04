@@ -31,6 +31,7 @@ span.group {
 div#frame {
 	width: 80%;
 	float: left;
+	width: 78%;
 }
 
 iframe#content_frame {
