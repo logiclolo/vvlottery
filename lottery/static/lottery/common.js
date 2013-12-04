@@ -1,7 +1,7 @@
 function check_jobid(jobid)
 {
 	var num = jobid.slice(2);
-	if (num.length < 3)
+	if (num.length < 4)
 		return false;
 
 	if (num.search(/\D/) >= 0)
