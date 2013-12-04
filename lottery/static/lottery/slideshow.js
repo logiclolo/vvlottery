@@ -12,7 +12,7 @@ function query_prizes(scope, http, idx, length)
 			if (data.data.length > 0)
 			{
 				scope.prizes = data.data;
-				idx += data.data.length;
+				idx += length;
 			}
 			else
 			{
