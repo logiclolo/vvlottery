@@ -13,8 +13,9 @@
 <body ng-controller="prize_input_ctrl3">
 <div class="content">
 
-
-<table class="hasdata">
+<h3 ng-show="nodata">無獎項資料</h3>
+<h3 ng-show="loaddata">讀取資料中</h3>
+<table class="hasdata" ng-show="hasdata">
 <tr>
 <th>獎次</th><th>名稱</th><th>工號</th><th>姓名</th><th>已同步？</th>
 </tr>

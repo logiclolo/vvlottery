@@ -62,12 +62,26 @@ function query_by_phase(scope, http, phase)
 {
 	http.get('/lottery/prize/?phase=' + phase).
 	success(function(data) {
+		scope.loaddata = false;
 		if (data.status == 'ok')
 		{
-			scope.prizes = data.data;
+			if (data.data.length == 0)
+			{
+				scope.hasdata = false;
+				scope.nodata = true;
+				scope.prizes = null;
+			}
+			else
+			{
+				scope.hasdata = true;
+				scope.nodata = false;
+				scope.prizes = data.data;
+			}
 		}
 		else if (data.status == 'error')
 		{
+			scope.hasdata = false;
+			scope.nodata = true;
 			scope.prizes = null;
 		}
 	});
@@ -91,6 +105,9 @@ function init(scope, http, cookies, phase)
 
 	http.defaults.headers.post['X-CSRFToken'] = cookies.csrftoken;
 
+	scope.hasdata = false;
+	scope.nodata = false;
+	scope.loaddata = true;
 	query_by_phase(scope, http, phase);
 
 	scope.phase = phase;
