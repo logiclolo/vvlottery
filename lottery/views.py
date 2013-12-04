@@ -3,6 +3,7 @@ from lottery.models import Employee, Presenter, Prize, Phase
 from django.http import HttpResponse
 from django.template import Context, loader
 from django import forms
+from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 
 def fill_employee_data(obj):
@@ -62,6 +63,7 @@ def response_ok(data):
 	out = json.dumps(result, ensure_ascii = False)
 	return HttpResponse(out, content_type = 'application/json')
 
+@ensure_csrf_cookie
 def employee(req):
 	data = []
 
@@ -135,6 +137,7 @@ def prize_list(req):
 
 	return response_ok(data)
 
+@ensure_csrf_cookie
 def prize(req):
 	data = []
 
