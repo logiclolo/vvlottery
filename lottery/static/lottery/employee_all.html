@@ -11,7 +11,8 @@
 <body ng-controller="employee_all_ctrl">
 	<div class="content">
 		<h3 ng-show="hasdata">共 {{employees.length}} 筆資料</h3>
-		<h3 ng-hide="hasdata">無員工資料</h3>
+		<h3 ng-show="nodata">無員工資料</h3>
+		<h3 ng-show="loaddata">讀取資料中</h3>
 		<table class="hasdata" ng-show="hasdata">
 			<tr>
 				<th>工號</th><th>姓名</th><th>部門</th>
