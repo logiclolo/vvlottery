@@ -75,7 +75,7 @@ function query_by_phase(scope, http, phase)
 
 function query_employee(scope, http, entry, id)
 {
-	http.get('/lottery/employee/?id=' + id).
+	http.get('/lottery/employee/?id=' + id.toLowerCase()).
 	success(function(data) {
 		if (data.status == 'ok')
 		{

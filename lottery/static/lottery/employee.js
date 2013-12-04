@@ -74,7 +74,7 @@ function employee_ctrl($scope, $http)
 	$scope.query_employee = function() {
 		var text = $scope.input
 
-		if (text.indexOf('vv') < 0 && text.indexOf('va') < 0)
+		if (text.toLowerCase().indexOf('vv') < 0 && text.toLowerCase().indexOf('va') < 0)
 		{
 			// We expect the name has at least 2 characters.
 			if (text.length < 2)
@@ -90,6 +90,6 @@ function employee_ctrl($scope, $http)
 		if (num.search(/\D/) >= 0)
 			return;
 
-		query_id($scope, $http, text);
+		query_id($scope, $http, text.toLowerCase());
 	};
 }
