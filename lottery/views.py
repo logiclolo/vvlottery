@@ -137,6 +137,19 @@ def prize_list(req):
 
 	return response_ok(data)
 
+def prize_print(req):
+	data = []
+	employees = Employee.objects.all().order_by('jobid')
+
+	for e in employees:
+		plist = Prize.objects.filter(winner__jobid__exact = e.jobid)
+
+		for i in plist:
+			tmp = fill_prize_data(i)
+			data.append(tmp)
+
+	return response_ok(data)
+
 @ensure_csrf_cookie
 def prize(req):
 	data = []

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+<meta charset="utf-8">
+<title>Print prize list</title>
+<script src="angular.js"></script>
+<script src="prize_print.js"></script>
+<link rel="stylesheet" type="text/css" href="global.css">
+</head>
+
+<body ng-controller="prize_all_ctrl">
+	<div class="content">
+		<h3 ng-show="hasdata">共 {{prizes.length}} 筆資料</h3>
+		<input type="button" onclick="window.print()" value="列印清單" ng-show="hasdata" style="margin-bottom:10px"/>
+		<h3 ng-show="nodata">無獎項資料</h3>
+		<h3 ng-show="loaddata">讀取資料中</h3>
+		<table class="hasdata" ng-show="hasdata">
+			<tr>
+				<th>工號</th><th>姓名</th><th>獎次</th><th>名稱</th><th>現場領？</th><th>簽名</th>
+			</tr>
+			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
+				<td>{{p.jobid}}</td>
+				<td>{{p.winner}}</td>
+				<td>{{p.serial}}</td>
+				<td>{{p.name}}</td>
+				<td><span ng-show="p.onsite">◎</span></td>
+				<td style="width:70px"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="footer">
+	</div>
+</body>
