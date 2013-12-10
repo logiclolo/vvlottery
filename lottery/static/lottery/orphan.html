@@ -13,7 +13,8 @@
 <body ng-controller="orphan_ctrl">
 	<div class="content">
 
-		<h2>未抽獎項：{{prize_number}} 筆</h2>
+		<h3 ng-show="loadprizedata">讀取資料中</h3>
+		<h2 ng-hide="loadprizedata">未抽獎項：{{prize_number}} 筆</h2>
 		<table class="hasdata">
 			<tr>
 				<th>獎次</th><th>名稱</th><th>工號</th><th>姓名</th><th>已同步？</th>
@@ -31,7 +32,8 @@
 			</tr>
 		</table>
 
-		<h2>未得獎員工：{{orphan_number}} 筆</h2>
+		<h3 ng-show="loademployeedata">讀取資料中</h3>
+		<h2 ng-hide="loademployeedata">未得獎員工：{{orphan_number}} 筆</h2>
 			<table class="hasdata">
 				<tr>
 					<th>工號</th><th>姓名</th>

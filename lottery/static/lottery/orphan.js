@@ -43,6 +43,7 @@ function query_orphan_prizes(scope, http)
 {
 	http.get('/lottery/prize/?orphan=1').
 	success(function(data) {
+		scope.loadprizedata = false;
 		if (data.status == 'ok')
 		{
 			scope.prizes = data.data;
@@ -72,6 +73,7 @@ function query_orphan_employee(scope, http)
 {
 	http.get('/lottery/employee/?orphan=1').
 	success(function(data) {
+		scope.loademployeedata = false;
 		if (data.status == 'ok')
 		{
 			scope.orphans = data.data;
@@ -90,6 +92,9 @@ function orphan_ctrl($scope, $http, $cookies)
 	g_http = $http;
 
 	$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+
+	$scope.loadprizedata = true;
+	$scope.loademployeedata = true;
 
 	query_orphan_prizes($scope, $http);
 	query_orphan_employee($scope, $http);
