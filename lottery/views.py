@@ -173,7 +173,7 @@ def prize(req):
 		if len(plist) == 0:
 			return response_error('Not found')
 	elif 'name' in req.GET:
-		plist = Prize.objects.filter(name__contains = req.GET['name']).order_by('serial')
+		plist = Prize.objects.filter(name__icontains = req.GET['name']).order_by('serial')
 		if len(plist) == 0:
 			return response_error('Not found')
 	else:
