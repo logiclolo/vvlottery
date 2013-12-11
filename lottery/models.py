@@ -33,8 +33,8 @@ class Presenter(models.Model):
 class Prize(models.Model):
 	name = models.CharField(max_length = 100)
 	serial = models.IntegerField()
-	winner = models.ForeignKey(Employee, null = True)
-	presenter = models.ForeignKey(Presenter, null = True)
+	winner = models.ForeignKey(Employee, null = True, blank = True)
+	presenter = models.ForeignKey(Presenter, null = True, blank = True)
 	phase = models.ForeignKey(Phase, null = True)
 	received = models.BooleanField(default = False)
 	onsite = models.BooleanField(default = False)
