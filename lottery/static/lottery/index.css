@@ -26,10 +26,10 @@ span.group {
 	display: block;
 	margin-top: 10px;
 	margin-bottom: 5px;
+	color: #1D7602;
 }
 
 div#frame {
-	width: 80%;
 	float: left;
 	width: 78%;
 }
