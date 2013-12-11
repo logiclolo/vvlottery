@@ -68,7 +68,7 @@ def employee(req):
 	data = []
 
 	if 'name' in req.GET:
-		elist = Employee.objects.filter(name__contains = req.GET['name']).order_by('jobid')
+		elist = Employee.objects.filter(name__icontains = req.GET['name']).order_by('jobid')
 		if len(elist) == 0:
 			return response_error('Not found')
 	elif 'id' in req.GET:
