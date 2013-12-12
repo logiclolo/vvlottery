@@ -27,7 +27,7 @@ function add_prize_ctrl($scope, $http, $cookies)
 	$scope.add_prize = function () {
 		var obj = new Object();
 
-		obj.phase = get_phase_name(2);
+		obj.phase_alias = get_phase_alias(2);
 		obj.name = $scope.donator + ":" + $scope.prize_name;
 
 		submit_prize($scope, $http, obj);

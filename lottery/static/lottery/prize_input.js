@@ -7,12 +7,12 @@ function on_load()
 	document.getElementById('id_input').focus();
 }
 
-function submit_winner(scope)
+function submit_winner(scope, input)
 {
 	var obj = new Object();
 	obj.serial = scope.e.serial;
 	obj.winner_jobid = scope.e.jobid;
-	obj.phase = scope.phase;
+	obj.phase_alias = scope.phase;
 
 	var json = angular.toJson(obj);
 
@@ -23,7 +23,11 @@ function submit_winner(scope)
 			scope.e.has_sync = true;
 		}
 		else
+		{
 			alert(data.reason);
+			input.focus();
+			input.select();
+		}
 	});
 }
 
@@ -53,14 +57,14 @@ function on_keypress(ev, input)
 	if (scope.e.winner == 'N/A')
 		return;
 
-	submit_winner(scope);
+	submit_winner(scope, input);
 
 	move_focus_next(input);
 }
 
 function query_by_phase(scope, http, phase)
 {
-	http.get('/lottery/prize/?phase=' + encodeURIComponent(phase)).
+	http.get('/lottery/prize/?phase_alias=' + phase).
 	success(function(data) {
 		scope.loaddata = false;
 		if (data.status == 'ok')
@@ -129,15 +133,15 @@ function init(scope, http, cookies, phase)
 
 function prize_input_ctrl($scope, $http, $cookies)
 {
-	init($scope, $http, $cookies, get_phase_name(1));
+	init($scope, $http, $cookies, get_phase_alias(1));
 }
 
 function prize_input_ctrl2($scope, $http, $cookies)
 {
-	init($scope, $http, $cookies, get_phase_name(2));
+	init($scope, $http, $cookies, get_phase_alias(2));
 }
 
 function prize_input_ctrl3($scope, $http, $cookies)
 {
-	init($scope, $http, $cookies, get_phase_name(3));
+	init($scope, $http, $cookies, get_phase_alias(3));
 }

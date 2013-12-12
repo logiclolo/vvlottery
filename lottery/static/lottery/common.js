@@ -10,6 +10,14 @@ function check_jobid(jobid)
 	return true;
 }
 
+function get_phase_alias(phase)
+{
+	if (phase < 1 || phase > 3)
+		return null;
+
+	return 'phase' + phase;
+}
+
 function get_phase_name(phase)
 {
 	if (phase == 1)
