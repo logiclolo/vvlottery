@@ -60,7 +60,7 @@ function on_keypress(ev, input)
 
 function query_by_phase(scope, http, phase)
 {
-	http.get('/lottery/prize/?phase=' + phase).
+	http.get('/lottery/prize/?phase=' + encodeURIComponent(phase)).
 	success(function(data) {
 		scope.loaddata = false;
 		if (data.status == 'ok')
