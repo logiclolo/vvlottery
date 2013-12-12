@@ -24,7 +24,7 @@ function submit_winner(scope, input)
 		}
 		else
 		{
-			alert(data.reason);
+			alert(errmsg(data.reason));
 			input.focus();
 			input.select();
 		}
