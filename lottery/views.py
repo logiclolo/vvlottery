@@ -142,7 +142,7 @@ def prize_print(req):
 	employees = Employee.objects.all().order_by('jobid')
 
 	for e in employees:
-		plist = Prize.objects.filter(winner__jobid__exact = e.jobid)
+		plist = e.prize_set.all()
 
 		for i in plist:
 			tmp = fill_prize_data(i)
