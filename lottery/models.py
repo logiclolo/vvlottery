@@ -18,6 +18,7 @@ class Employee(models.Model):
 
 class Phase(models.Model):
 	name = models.CharField(max_length = 16)
+	alias = models.CharField(max_length = 8)
 
 	def __unicode__(self):
 		return self.name

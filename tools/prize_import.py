@@ -11,7 +11,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'vvlottery.settings'
 from lottery.models import Employee, Department, Prize, Presenter, Phase
 
 sheet = 1
-phases = [u'員工獎', u'鹹魚翻身獎', u'地獄翻身獎']
+phases = {'phase1': u'員工獎', 'phase2': u'鹹魚翻身獎', 'phase3': u'地獄翻身獎'}
 
 def usage():
 	print 'Usage: prize_import.py <Excel file>'
@@ -23,13 +23,14 @@ def get_phase(phase):
 	except Phase.DoesNotExist:
 		return None
 
-def add_phase(phase):
+def add_phase(alias, phase):
 	try:
 		tmp = Phase.objects.get(name = phase)
 		return tmp
 	except Phase.DoesNotExist:
 		tmp = Phase()
 		tmp.name = phase
+		tmp.alias = alias
 		tmp.save()
 
 	return tmp
@@ -40,9 +41,9 @@ def do_add_prize(name, serial, get_on_site):
 	prize.name = name
 	prize.onsite = get_on_site
 
-	phase = get_phase(phases[0])
+	phase = get_phase(phases['phase1'])
 	if not phase:
-		print 'No phase found: %s' % phases[0]
+		print 'No phase found: %s' % phases['phase1']
 	
 	prize.phase = phase
 	prize.save()
@@ -94,8 +95,8 @@ if __name__ == '__main__':
 
 	excel = sys.argv[1]
 
-	for p in phases:
-		add_phase(p)
+	for k, v in phases.iteritems():
+		add_phase(k, v)
 
 	if not prize_import(excel, sheet):
 		sys.exit(1)
