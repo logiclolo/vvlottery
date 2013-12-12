@@ -94,12 +94,12 @@ def prize_list_all(req):
 	data = []
 	query_phase = False
 
-	if 'phase' in req.GET:
-		phase = req.GET['phase']
+	if 'phase_alias' in req.GET:
+		phase = req.GET['phase_alias']
 		query_phase = True
 
 	if query_phase:
-		plist = Prize.objects.filter(phase__name__exact = phase).order_by('serial')
+		plist = Prize.objects.filter(phase__alias__exact = phase).order_by('serial')
 	else:
 		plist = Prize.objects.all().order_by('serial')
 
@@ -121,12 +121,12 @@ def prize_list(req):
 	if 'length' in req.GET:
 		length = int(req.GET['length'])
 
-	if 'phase' in req.GET:
-		phase = req.GET['phase']
+	if 'phase_alias' in req.GET:
+		phase = req.GET['phase_alias']
 		query_phase = True
 
 	if query_phase:
-		plist = Prize.objects.exclude(winner__exact = None).filter(phase__name__exact = phase).order_by('-serial')
+		plist = Prize.objects.exclude(winner__exact = None).filter(phase__alias__exact = phase).order_by('-serial')
 	else:
 		plist = Prize.objects.exclude(winner__exact = None).order_by('-serial')
 	plist = plist[idx:idx + length]
@@ -158,12 +158,10 @@ def prize(req):
 		plist = Prize.objects.filter(serial = req.GET['serial'])
 		if len(plist) == 0:
 			return response_error('Not found')
+	elif 'phase_alias' in req.GET:
+		plist = Prize.objects.filter(phase__alias__exact = req.GET['phase_alias']).order_by('-serial')
 	elif 'phase' in req.GET:
-		try:
-			tmp = Phase.objects.get(name = req.GET['phase'])
-			plist = tmp.prize_set.all().order_by('-serial')
-		except Phase.DoesNotExist:
-			return response_error('Not found')
+		plist = Prize.objects.filter(phase__name__exact = req.GET['phase']).order_by('-serial')
 	elif 'orphan' in req.GET:
 		plist = Prize.objects.filter(winner__exact = None).order_by('serial')
 		if len(plist) == 0:
@@ -185,6 +183,12 @@ def prize(req):
 
 	return response_ok(data)
 
+def check_phase1_dup(e, alias):
+	if alias == 'phase1' and e.prize_set.filter(phase__alias__exact = 'phase1').count() > 0:
+		return True
+	else:
+		return False
+
 def prize_input(req):
 	data = []
 
@@ -192,12 +196,14 @@ def prize_input(req):
 		return response_error('Invalid method');
 
 	tmp = json.loads(req.body)
-	if not 'phase' in tmp or not 'serial' in tmp or not 'winner_jobid' in tmp:
+	if not 'phase_alias' in tmp or not 'serial' in tmp or not 'winner_jobid' in tmp:
 		return response_error('Invalid data format');
 
 	try:
-		prize = Prize.objects.get(serial = tmp['serial'], phase__name__exact = tmp['phase'])
 		winner = Employee.objects.get(jobid = tmp['winner_jobid'])
+		if check_phase1_dup(winner, tmp['phase_alias']):
+			return response_error('Duplicated winner')
+		prize = Prize.objects.get(serial = tmp['serial'], phase__alias__exact = tmp['phase_alias'])
 
 		prize.winner = winner
 		prize.save()
@@ -215,11 +221,11 @@ def add_prize(req):
 		return response_error('Invalid method');
 
 	tmp = json.loads(req.body)
-	if not 'phase' in tmp or not 'name' in tmp:
+	if not 'phase_alias' in tmp or not 'name' in tmp:
 		return response_error('Invalid data format');
 
 	try:
-		phase = Phase.objects.get(name = tmp['phase'])
+		phase = Phase.objects.get(alias = tmp['phase_alias'])
 
 		prize = Prize()
 		prize.phase = phase
