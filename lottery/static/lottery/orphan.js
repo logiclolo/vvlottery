@@ -7,7 +7,7 @@ function submit_winner(scope)
 	var obj = new Object();
 	obj.serial = scope.e.serial;
 	obj.winner_jobid = scope.e.jobid;
-	obj.phase = scope.e.phase;
+	obj.phase_alias = scope.e.phase_alias;
 
 	var json = angular.toJson(obj);
 
@@ -18,7 +18,7 @@ function submit_winner(scope)
 			scope.e.has_sync = true;
 		}
 		else
-			alert(data.reason);
+			alert(errmsg(data.reason));
 	});
 }
 
