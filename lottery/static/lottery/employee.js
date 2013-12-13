@@ -32,7 +32,7 @@ function query_prizes(scope, http, winners)
 
 function query_name(scope, http, name)
 {
-	http.get('/lottery/employee/?name=' + name).
+	http.get('/lottery/employee/?name=' + encodeURIComponent(name)).
 	success(function(data) {
 		if (data.status == 'ok')
 		{

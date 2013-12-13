@@ -10,7 +10,7 @@ function on_change(input)
 
 function query_name(scope, http, name)
 {
-	http.get('/lottery/prize/?name=' + name).
+	http.get('/lottery/prize/?name=' + encodeURIComponent(name)).
 	success(function(data) {
 		if (data.status == 'ok')
 		{
