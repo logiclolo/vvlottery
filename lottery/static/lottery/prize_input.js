@@ -24,7 +24,8 @@ function submit_winner(scope, input)
 		}
 		else
 		{
-			alert(errmsg(data.reason));
+			scope.e.errmsg = errmsg(data.reason);
+			scope.e.iserror = true;
 			input.focus();
 			input.select();
 		}
@@ -117,6 +118,7 @@ function init(scope, http, cookies, phase)
 	scope.phase = phase;
 	scope.change = function(entry, jobid) {
 		entry.has_sync = false;
+		entry.iserror = false;
 		entry.winner = 'N/A';
 
 		if (!check_jobid(jobid))
