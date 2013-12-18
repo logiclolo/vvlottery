@@ -184,8 +184,8 @@ def prize(req):
 
 	return response_ok(data)
 
-def check_phase1_dup(e, alias):
-	if alias == 'phase1' and e.prize_set.filter(phase__alias__exact = 'phase1').count() > 0:
+def check_phase_dup(e, alias):
+	if e.prize_set.filter(phase__alias__exact = alias).count() > 0:
 		return True
 	else:
 		return False
@@ -202,7 +202,7 @@ def prize_input(req):
 
 	try:
 		winner = Employee.objects.get(jobid = tmp['winner_jobid'])
-		if check_phase1_dup(winner, tmp['phase_alias']):
+		if check_phase_dup(winner, tmp['phase_alias']):
 			return response_error('Duplicated winner')
 		prize = Prize.objects.get(serial = tmp['serial'], phase__alias__exact = tmp['phase_alias'])
 
