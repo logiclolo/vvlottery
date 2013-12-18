@@ -55,6 +55,7 @@ div.form_layout br {
 	float: left;
 	border: 1px solid #98bf21;
 	width: 90%;
+	margin-bottom: 5px;
 }
 
 div#prizedata {
