@@ -29,3 +29,24 @@ function get_phase_name(phase)
 	else
 		return null;
 }
+
+function prize_count(scope, data)
+{
+	var phase1_count = 0;
+	var phase2_count = 0;
+	var phase1 = get_phase_alias(1);
+	var phase2 = get_phase_alias(2);
+
+	for (var i = 0; i < data.length; i++)
+	{
+		var d = data[i];
+		if (d.phase_alias == phase1)
+			phase1_count++;
+		else if (d.phase_alias == phase2)
+			phase2_count++;
+	}
+
+	scope.phase1_count = phase1_count;
+	scope.phase2_count = phase2_count;
+}
+

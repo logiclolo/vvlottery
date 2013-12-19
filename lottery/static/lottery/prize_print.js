@@ -16,6 +16,8 @@ function query_prize_all(scope, http)
 				scope.prizes = data.data;
 				scope.hasdata = true;
 				scope.nodata = false;
+
+				prize_count(scope, data.data);
 			}
 		}
 		else if (data.status == 'error')
