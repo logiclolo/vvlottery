@@ -25,12 +25,22 @@ function check_fields(scope)
 	if (scope.donator == undefined || scope.donator.search(/^\s*$/) >= 0)
 	{
 		scope.errmsg = errmsg("Donator should not be empty");
+
+		var input = document.getElementById('donator_input');
+		input.focus();
+		input.select();
+
 		return false;
 	}
 
 	if (scope.prize_name == undefined || scope.prize_name.search(/^\s*$/) >= 0)
 	{
 		scope.errmsg = errmsg("Prize name should not be empty");
+
+		var input = document.getElementById('prize_name_input');
+		input.focus();
+		input.select();
+
 		return false;
 	}
 
