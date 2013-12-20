@@ -10,24 +10,21 @@ function on_change(input)
 
 function query_prizes(scope, http, winners)
 {
-	for (var i = 0; i < winners.length; i++)
-	{
-		var p = winners[i];
-
-		http.get('/lottery/prize/?winner_jobid=' + p.jobid).
+	angular.forEach(winners, function(element, idx) {
+		http.get('/lottery/prize/?winner_jobid=' + element.jobid).
 		success(function(data) {
 			if (data.status == 'ok')
 			{
-				p.hasprizes = true;
-				p.prizes = data.data;
+				element.hasprizes = true;
+				element.prizes = data.data;
 			}
 			else
 			{
-				p.hasprizes = false;
-				p.prizes = null;
+				element.hasprizes = false;
+				element.prizes = null;
 			}
 		});
-	}
+	});
 }
 
 function query_name(scope, http, name)
