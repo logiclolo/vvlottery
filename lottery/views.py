@@ -138,6 +138,17 @@ def prize_list(req):
 
 	return response_ok(data)
 
+def jobid_cmp(a, b):
+	ajobid = a['jobid']
+	bjobid = b['jobid']
+
+	if ajobid > bjobid:
+		return 1
+	elif ajobid < bjobid:
+		return -1
+	else:
+		return 0
+
 def prize_print(req):
 	data = []
 	query_phase = False
@@ -146,17 +157,16 @@ def prize_print(req):
 		phase = req.GET['phase_alias']
 		query_phase = True
 
-	employees = Employee.objects.all().order_by('jobid')
+	if query_phase:
+		plist = Prize.objects.filter(phase__alias__exact = phase).exclude(winner = None)
+	else:
+		plist = Prize.objects.exclude(winner = None)
 
-	for e in employees:
-		if query_phase:
-			plist = e.prize_set.filter(phase__alias__exact = phase).order_by('serial')
-		else:
-			plist = e.prize_set.all()
+	for p in plist:
+		tmp = fill_prize_data(p)
+		data.append(tmp)
 
-		for i in plist:
-			tmp = fill_prize_data(i)
-			data.append(tmp)
+	data.sort(jobid_cmp)
 
 	return response_ok(data)
 
