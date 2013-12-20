@@ -1,6 +1,6 @@
-function query_prize_all(scope, http)
+function query_by_phase(scope, http, phase)
 {
-	http.get('/lottery/prize_print/').
+	http.get('/lottery/prize_print/?phase_alias=' + phase).
 	success(function(data) {
 		scope.loaddata = false;
 		if (data.status == 'ok')
@@ -16,8 +16,6 @@ function query_prize_all(scope, http)
 				scope.prizes = data.data;
 				scope.hasdata = true;
 				scope.nodata = false;
-
-				prize_count(scope, data.data);
 			}
 		}
 		else if (data.status == 'error')
@@ -29,10 +27,18 @@ function query_prize_all(scope, http)
 	});
 }
 
-function prize_all_ctrl($scope, $http)
+function prize_print($scope, $http)
 {
 	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;
-	query_prize_all($scope, $http);
+	query_by_phase($scope, $http, get_phase_alias(1));
+}
+
+function prize_print2($scope, $http)
+{
+	$scope.hasdata = false;
+	$scope.nodata = false;
+	$scope.loaddata = true;
+	query_by_phase($scope, $http, get_phase_alias(2));
 }
