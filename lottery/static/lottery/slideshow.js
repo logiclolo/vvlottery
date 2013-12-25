@@ -11,7 +11,18 @@ function query_prizes(scope, http, idx, length)
 		{
 			if (data.data.length > 0)
 			{
-				scope.prizes = data.data;
+				var tmp = data.data;
+				for (var i = 0; i < tmp.length; i++)
+				{
+					var jobid = tmp[i]['jobid'];
+
+					jobid = jobid.replace(/^vv/, '晶睿');
+					jobid = jobid.replace(/^va/, '睿緻');
+
+					tmp[i]['jobid'] = jobid;
+				}
+
+				scope.prizes = tmp;
 				idx += length;
 			}
 			else
