@@ -76,6 +76,10 @@ def employee(req):
 		elist = Employee.objects.filter(jobid = req.GET['id'])
 		if len(elist) == 0:
 			return response_error('Not found')
+	elif 'fuzzy_id' in req.GET:
+		elist = Employee.objects.filter(jobid__contains = req.GET['fuzzy_id']).order_by('jobid')
+		if len(elist) == 0:
+			return response_error('Not found')
 	elif 'orphan' in req.GET:
 		elist = []
 		tmp = Employee.objects.all().order_by('jobid')

@@ -65,6 +65,25 @@ function query_id(scope, http, id)
 	});
 }
 
+function query_id_fuzzy(scope, http, text)
+{
+	http.get('/lottery/employee/?fuzzy_id=' + text).
+	success(function(data) {
+		if (data.status == 'ok')
+		{
+			scope.employees = data.data;
+			scope.hasdata = true;
+
+			query_prizes(scope, http, data.data);
+		}
+		else if (data.status == 'error')
+		{
+			scope.employees = null;
+			scope.hasdata = false;
+		}
+	});
+}
+
 function employee_ctrl($scope, $http)
 {
 	$scope.hasdata = false;
@@ -77,7 +96,10 @@ function employee_ctrl($scope, $http)
 			if (text.length < 2)
 				return;
 
-			query_name($scope, $http, text);
+			if (text.search(/\D/) < 0)
+				query_id_fuzzy($scope, $http, text);			
+			else
+				query_name($scope, $http, text);
 		}
 
 		var num = text.slice(2);
