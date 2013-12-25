@@ -7,8 +7,7 @@ function cookie_join(array)
 	for (var i = 0; i < array.length; i++)
 	{
 		tmp += array[i];
-		if (i < array.length -1)
-			tmp += ';';
+		tmp += ';';
 	}
 
 	return tmp;
@@ -60,4 +59,7 @@ function cookies_init()
 	var str = document.cookie;
 	if (str.length != 0)
 		cookie_arr = str.split(';');
+
+	for (var i = 0; i < cookie_arr.length; i++)
+		cookie_arr[i] = cookie_arr[i].trim();
 }
