@@ -1,5 +1,5 @@
 # Create your views here.
-from lottery.models import Employee, Presenter, Prize, Phase
+from lottery.models import Employee, Presenter, Prize, Phase, Donator
 from django.http import HttpResponse
 from django.template import Context, loader
 from django import forms
@@ -35,6 +35,25 @@ def fill_prize_data(obj):
 		tmp['presenter'] = obj.presenter.name
 	else:
 		tmp['presenter'] = 'N/A'
+
+	return tmp
+
+def fill_donator_data(obj):
+	tmp = {}
+
+	tmp['jobid'] = obj.employee.jobid
+	tmp['name'] = obj.employee.name
+	if obj.employee.department:
+		tmp['department'] = obj.employee.department.name
+	else:
+		tmp['department'] = 'N/A'
+
+	if obj.employee.title:
+		tmp['title'] = obj.employee.title
+	else:
+		tmp['title'] = 'N/A'
+
+	tmp['donated'] = obj.donated
 
 	return tmp
 
@@ -258,6 +277,17 @@ def add_prize(req):
 		prize.save()
 	except Phase.DoesNotExist:
 		return response_error('Prize not found')
+
+	return response_ok(data)
+
+def donator(req):
+	data = []
+
+	dlist = Donator.objects.all().order_by('donated', 'employee__jobid')
+
+	for i in dlist:
+		tmp = fill_donator_data(i)
+		data.append(tmp)
 
 	return response_ok(data)
 

@@ -23,6 +23,13 @@ class Phase(models.Model):
 	def __unicode__(self):
 		return self.name
 
+class Donator(models.Model):
+	employee = models.OneToOneField(Employee)
+	donated = models.BooleanField(default = False)
+
+	def __unicode__(self):
+		return '%s %s' % (self.employee.name, self.employee.title)
+
 class Presenter(models.Model):
 	employee = models.OneToOneField(Employee)
 	phase = models.ForeignKey(Phase, null = True)
