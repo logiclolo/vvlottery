@@ -2,7 +2,7 @@
 <html ng-app>
 <head>
 <meta charset="utf-8">
-<title>Print prize list</title>
+<title>員工獎清單</title>
 <script src="angular.js"></script>
 <script src="prize_print.js"></script>
 <script src="common.js"></script>
@@ -17,12 +17,11 @@
 		<h3 ng-show="loaddata">讀取資料中</h3>
 		<table class="hasdata" ng-show="hasdata">
 			<tr>
-				<th>工號</th><th>姓名</th><th>類別</th><th>獎次</th><th>名稱</th><th>現場領？</th><th>簽名</th>
+				<th>工號</th><th>姓名</th><th>獎次</th><th>名稱</th><th>現場領？</th><th>簽名</th>
 			</tr>
 			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
 				<td>{{p.jobid}}</td>
-				<td>{{p.winner}}</td>
-				<td>{{p.phase}}</td>
+				<td style="width:70px">{{p.winner}}</td>
 				<td>{{p.serial}}</td>
 				<td>{{p.name}}</td>
 				<td><span ng-show="p.onsite">◎</span></td>
