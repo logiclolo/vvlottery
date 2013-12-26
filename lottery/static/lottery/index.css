@@ -20,6 +20,7 @@ div#sidebar a:hover {
 
 div#sidebar a.selected {
 	font-weight: bold;
+	background-color: #A7C921;
 }
 
 span.group {
