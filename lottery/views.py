@@ -257,28 +257,64 @@ def prize_input(req):
 
 	return response_ok(data)
 
+def __add_donator_prize(phase_alias, jobid, prize_name):
+	try:
+		phase = Phase.objects.get(alias = phase_alias)
+		employee = Employee.objects.get(jobid = jobid)
+
+		prize = Prize()
+		prize.phase = phase
+		prize.name = '%s:%s' % (employee.name, prize_name)
+		prize.serial = Prize.objects.filter(phase = phase).count() + 1
+		prize.save()
+
+		employee.donator.donated = True
+		employee.donator.save()
+	except Phase.DoesNotExist:
+		return response_error('Phase not found')
+	except Employee.DoesNotExist:
+		return response_error('Employee not found')
+	except Donator.DoesNotExist:
+		pass
+
+	return response_ok([])
+
+def __add_other_prize(phase, prize_name):
+	try:
+		phase = Phase.objects.get(alias = phase_alias)
+
+		prize = Prize()
+		prize.phase = phase
+		prize.name = prize_name
+		prize.serial = Prize.objects.filter(phase = phase).count() + 1
+		prize.save()
+	except Phase.DoesNotExist:
+		return response_error('Phase not found')
+
+	return response_ok([])
+
 def add_prize(req):
 	data = []
+	only_prize_name = False
 
 	if req.method != 'POST':
 		return response_error('Invalid method');
 
 	tmp = json.loads(req.body)
-	if not 'phase_alias' in tmp or not 'name' in tmp:
+	if 'jobid' in tmp:
+		if not 'phase_alias' in tmp or not 'prize' in tmp:
+			return response_error('Invalid data format');
+	elif 'name' in tmp:
+		only_prize_name = True
+		if not 'phase_alias' in tmp:
+			return response_error('Invalid data format');
+	else:
 		return response_error('Invalid data format');
 
-	try:
-		phase = Phase.objects.get(alias = tmp['phase_alias'])
-
-		prize = Prize()
-		prize.phase = phase
-		prize.name = tmp['name']
-		prize.serial = Prize.objects.filter(phase = phase).count() + 1
-		prize.save()
-	except Phase.DoesNotExist:
-		return response_error('Prize not found')
-
-	return response_ok(data)
+	if only_prize_name:
+		return __add_other_prize(tmp['phase_alias'], tmp['name'])
+	else:
+		return __add_donator_prize(tmp['phase_alias'], tmp['jobid'], tmp['prize'])
 
 def donator(req):
 	data = []

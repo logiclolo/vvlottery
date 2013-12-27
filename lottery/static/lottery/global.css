@@ -33,7 +33,7 @@ div.form_layout {
 	margin-bottom: 10px;
 }
 
-div.form_layout span, div.form_layout input {
+div.form_layout span, div.form_layout input, div.form_layout select {
 	width: 120px;
 	float: left;
 	margin-bottom: 5px;

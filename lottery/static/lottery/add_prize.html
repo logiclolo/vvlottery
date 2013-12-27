@@ -15,7 +15,12 @@
 	<div class="content">
 		<div class="form_layout">
 			<span>捐贈主管：</span>
+			<!--
 			<input id="donator_input" class="textfield" type="text" ng-model="donator" ng-change="input_changed()"><br/>
+			-->
+			<select class="textfield" ng-model="donator" ng-change="input_changed()">
+				<option ng-repeat="d in donators" value="{{d.jobid}}">{{d.name}}</option>
+			</select><br/>
 			<span>獎項名稱：</span>
 			<input id="prize_name_input" class="textfield" type="text" ng-model="prize_name" ng-change="input_changed()"><br/>
 		</div>

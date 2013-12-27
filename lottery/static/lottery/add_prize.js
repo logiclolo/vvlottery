@@ -2,7 +2,7 @@ angular.module('add_prize', ['ngCookies']);
 
 function on_load()
 {
-	document.getElementById('donator_input').focus();
+	//document.getElementById('donator_input').focus();
 }
 
 function submit_prize(scope, http, obj)
@@ -26,9 +26,11 @@ function check_fields(scope)
 	{
 		scope.errmsg = errmsg("Donator should not be empty");
 
+		/*
 		var input = document.getElementById('donator_input');
 		input.focus();
 		input.select();
+		*/
 
 		return false;
 	}
@@ -47,9 +49,33 @@ function check_fields(scope)
 	return true;
 }
 
+function query_donator(scope, http)
+{
+	http.get('/lottery/donator/').
+	success(function(data) {
+		if (data.status == 'ok')
+		{
+			if (data.data.length == 0)
+			{
+				scope.donators = null;
+			}
+			else
+			{
+				scope.donators = data.data;
+			}
+		}
+		else if (data.status == 'error')
+		{
+			scope.donators = null;
+		}
+	});
+}
+
 function add_prize_ctrl($scope, $http, $cookies)
 {
 	$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+
+	query_donator($scope, $http);
 
 	$scope.add_prize = function () {
 		var obj = new Object();
@@ -58,7 +84,8 @@ function add_prize_ctrl($scope, $http, $cookies)
 			return;
 
 		obj.phase_alias = get_phase_alias(2);
-		obj.name = $scope.donator + ":" + $scope.prize_name;
+		obj.jobid = $scope.donator;
+		obj.prize = $scope.prize_name;
 
 		submit_prize($scope, $http, obj);
 	};
