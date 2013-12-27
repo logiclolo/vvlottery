@@ -279,7 +279,7 @@ def __add_donator_prize(phase_alias, jobid, prize_name):
 
 	return response_ok([])
 
-def __add_other_prize(phase, prize_name):
+def __add_other_prize(phase_alias, prize_name):
 	try:
 		phase = Phase.objects.get(alias = phase_alias)
 
