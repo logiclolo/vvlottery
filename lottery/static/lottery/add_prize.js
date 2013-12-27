@@ -26,14 +26,20 @@ function check_fields(scope)
 	{
 		scope.errmsg = errmsg("Donator should not be empty");
 
-		/*
+		return false;
+	}
+	else if (scope.donator == 'custom' && (scope.custom_donator == undefined ||
+				scope.custom_donator.search(/^\s*$/) >= 0))
+	{
+		scope.errmsg = errmsg("Custom donator should not be empty");
+
 		var input = document.getElementById('donator_input');
 		input.focus();
 		input.select();
-		*/
 
 		return false;
 	}
+
 
 	if (scope.prize_name == undefined || scope.prize_name.search(/^\s*$/) >= 0)
 	{
@@ -84,8 +90,13 @@ function add_prize_ctrl($scope, $http, $cookies)
 			return;
 
 		obj.phase_alias = get_phase_alias(2);
-		obj.jobid = $scope.donator;
-		obj.prize = $scope.prize_name;
+		if ($scope.donator == 'custom')
+			obj.name = $scope.custom_donator + ':' + $scope.prize_name;
+		else
+		{
+			obj.jobid = $scope.donator;
+			obj.prize = $scope.prize_name;
+		}
 
 		submit_prize($scope, $http, obj);
 	};
@@ -93,5 +104,12 @@ function add_prize_ctrl($scope, $http, $cookies)
 	$scope.input_changed = function () {
 		$scope.prize_added = false;
 		$scope.errmsg = null;
+	};
+
+	$scope.select_changed = function () {
+		$scope.prize_added = false;
+		$scope.errmsg = null;
+
+		$scope.iscustom = ($scope.donator == 'custom') ? true : false;
 	};
 }
