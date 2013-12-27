@@ -318,8 +318,21 @@ def add_prize(req):
 
 def donator(req):
 	data = []
+	has_arg = False
+	donated = False
 
-	dlist = Donator.objects.all().order_by('donated', 'employee__jobid')
+	if 'donated' in req.GET:
+		has_arg = True
+
+		if req.GET['donated'] == '1':
+			donated = True
+		else:
+			donated = False
+
+	if has_arg:
+		dlist = Donator.objects.filter(donated = donated).order_by('donated', 'employee__jobid')
+	else:
+		dlist = Donator.objects.all().order_by('donated', 'employee__jobid')
 
 	for i in dlist:
 		tmp = fill_donator_data(i)

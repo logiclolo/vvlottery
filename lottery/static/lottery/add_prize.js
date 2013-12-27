@@ -5,6 +5,23 @@ function on_load()
 	//document.getElementById('donator_input').focus();
 }
 
+function remove_element(scope, jobid)
+{
+	if (jobid == undefined)
+		return;
+
+	var elements = document.getElementsByTagName('option');
+	for (var i = 0; i < elements.length; i++)
+	{
+		var obj = angular.element(elements[i]);
+		if (obj.val() == jobid)
+		{
+			obj.remove();
+			break;
+		}
+	}
+}
+
 function submit_prize(scope, http, obj)
 {
 	var json = angular.toJson(obj);
@@ -14,6 +31,9 @@ function submit_prize(scope, http, obj)
 		if (data.status == 'ok')
 		{
 			scope.prize_added = true;
+			scope.donator = '';
+
+			remove_element(scope, obj.jobid);
 		}
 		else
 			alert(data.reason);
@@ -57,7 +77,7 @@ function check_fields(scope)
 
 function query_donator(scope, http)
 {
-	http.get('/lottery/donator/').
+	http.get('/lottery/donator/?donated=0').
 	success(function(data) {
 		if (data.status == 'ok')
 		{
