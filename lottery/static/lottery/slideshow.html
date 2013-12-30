@@ -15,7 +15,7 @@
 		<!--<h2>{{range_label}}</h2>-->
 		<table>
 			<tr ng-repeat="e in prizes" ng-class-odd="" ng-class-even="'even'">
-				<td>第 {{e.serial}} 獎</td><td>{{e.name}}</td><td>{{e.jobid}}</td><td>{{e.winner}}</td>
+				<td class="serial">第 {{e.serial}} 獎</td><td>{{e.name}}</td><td>{{e.jobid}}</td><td class="name">{{e.winner}}</td>
 			</tr>
 		</table>
 	</div>
