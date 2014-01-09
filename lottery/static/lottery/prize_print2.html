@@ -17,13 +17,14 @@
 		<h3 ng-show="loaddata">讀取資料中</h3>
 		<table class="hasdata" ng-show="hasdata">
 			<tr>
-				<th>工號</th><th>姓名</th><th>獎次</th><th>名稱</th><th>簽名</th>
+				<th>工號</th><th>姓名</th><th>獎次</th><th>名稱</th><th>已領取？</th><th>簽名</th>
 			</tr>
 			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
 				<td>{{p.jobid}}</td>
 				<td>{{p.winner}}</td>
 				<td>{{p.serial}}</td>
 				<td>{{p.name}}</td>
+				<td><span ng-show="p.received">◎</span></td>
 				<td style="width:70px"></td>
 			</tr>
 		</table>
