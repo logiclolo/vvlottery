@@ -1,5 +1,5 @@
 # Create your views here.
-from lottery.models import Employee, Presenter, Prize, Phase, Donator
+from lottery.models import Employee, Presenter, Prize, Phase, Donator, Queue
 from django.http import HttpResponse
 from django.template import Context, loader
 from django import forms
@@ -17,6 +17,30 @@ def fill_employee_data(obj):
 
 	return tmp
 
+def fill_queue_data(obj):
+	tmp = {}
+
+	tmp['id'] = obj.id
+	tmp['name'] = obj.prize.name
+	tmp['phase'] = obj.prize.phase.name
+	tmp['serial'] = obj.prize.serial
+	tmp['winner_jobid'] = obj.prize.winner.jobid
+	tmp['winner_name'] = obj.prize.winner.name
+
+	return tmp
+
+def get_receiving_status(obj):
+	if obj.onsite == False:
+		return ''
+
+	try:
+		if obj.queue.done == True:
+			return 'receivied'
+		else:
+			return 'inqueue'
+	except Queue.DoesNotExist:
+		return ''
+
 def fill_prize_data(obj):
 	tmp = {}
 
@@ -25,7 +49,7 @@ def fill_prize_data(obj):
 	tmp['phase'] = obj.phase.name
 	tmp['phase_alias'] = obj.phase.alias
 	tmp['onsite'] = obj.onsite
-	tmp['received'] = obj.received
+	tmp['receiving_status'] = get_receiving_status(obj)
 	if obj.winner:
 		tmp['winner'] = obj.winner.name
 		tmp['jobid'] = obj.winner.jobid
@@ -409,3 +433,82 @@ def prize_import(req):
 			return response_error('Invalid form')
 	else:
 		return response_error('Invalid method')
+
+@ensure_csrf_cookie
+def queue(req):
+	data = []
+
+	qlist = Queue.objects.exclude(done = True).order_by('id')
+
+	for i in qlist:
+		tmp = fill_queue_data(i)
+		data.append(tmp)
+
+	return response_ok(data)
+
+def add_queue(req):
+	if req.method != 'POST':
+		return response_error('Invalid method');
+
+	tmp = json.loads(req.body)
+	if not 'phase_alias' in tmp or not 'serial' in tmp:
+		return response_error('Invalid data format');
+
+	try:
+		prize = Prize.objects.get(serial = tmp['serial'], phase__alias__exact = tmp['phase_alias'])
+
+		try:
+			if prize.queue.done:
+				return response_error('Already received')
+			else:
+				return response_error('Already in queue')
+		except Queue.DoesNotExist:
+			pass
+
+		queue_item = Queue()
+		queue_item.prize = prize
+		queue_item.save()
+	except Prize.DoesNotExist:
+		return response_error('Prize not found')
+
+	return response_ok([])
+
+def del_queue(req):
+	if req.method != 'POST':
+		return response_error('Invalid method');
+
+	tmp = json.loads(req.body)
+	if not 'phase_alias' in tmp or not 'serial' in tmp:
+		return response_error('Invalid data format');
+
+	try:
+		queue_item = Queue.objects.get(prize__serial__exact = tmp['serial'],
+				prize__phase__alias__exact = tmp['phase_alias'])
+		queue_item.delete()
+	except Queue.DoesNotExist:
+		return response_error('Queue item not found')
+
+	return response_ok([])
+
+def set_queue_done(req):
+	if req.method != 'POST':
+		return response_error('Invalid method');
+
+	tmp = json.loads(req.body)
+	if not 'id' in tmp:
+		return response_error('Invalid data format');
+
+	try:
+		qid = int(tmp['id'])
+	except ValueError:
+		return response_error('Invalid data format');
+
+	try:
+		queue_item = Queue.objects.get(pk = qid)
+		queue_item.done = True
+
+		queue_item.save()
+	except Queue.DoesNotExist:
+		return response_error('Queue item not found')
+
+	return response_ok([])
