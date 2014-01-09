@@ -50,3 +50,9 @@ class Prize(models.Model):
 	def __unicode__(self):
 		return self.name
 
+class Queue(models.Model):
+	prize = models.OneToOneField(Prize)
+	done = models.BooleanField(default = False)
+
+	def __unicode__(self):
+		return self.prize.name

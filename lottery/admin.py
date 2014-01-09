@@ -1,4 +1,4 @@
-from lottery.models import Employee, Department, Prize, Presenter, Phase, Donator
+from lottery.models import Employee, Department, Prize, Presenter, Phase, Donator, Queue
 from django.contrib import admin
 
 admin.site.register(Department)
@@ -22,3 +22,8 @@ class PrizeAdmin(admin.ModelAdmin):
 	list_filter = ['phase']
 
 admin.site.register(Prize, PrizeAdmin)
+
+class QueueAdmin(admin.ModelAdmin):
+	list_display = ('id', 'prize')
+
+admin.site.register(Queue, QueueAdmin)
