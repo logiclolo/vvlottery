@@ -39,9 +39,10 @@
 					<tr ng-repeat="p in e.prizes" ng-class-odd="" ng-class-even="'even'">
 						<td>{{p.serial}}</td><td>{{p.phase}}</td><td>{{p.name}}</td><td><span ng-show="p.onsite">◎</span></td>
 						<td>
-							<input type="checkbox" ng-model="p.received" ng-show="p.onsite" ng-click="set_received(p)"></input>
+							<span ng-show="p.onsite">{{p.receiving_status}}</span>
+							<input type="button" ng-show="receivable(p)" value="領取" ng-click="submit_queue(p)" ng-disabled="p.is_sync"></input>
 							<span class="error" ng-show="p.errmsg">{{p.errmsg}}</span>
-							<span class="success" ng-show="p.is_sync">已同步完成</span>
+							<span class="success" ng-show="p.is_sync">已加入佇列</span>
 						</td>
 					</tr>
 				</table>

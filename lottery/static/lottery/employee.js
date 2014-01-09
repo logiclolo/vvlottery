@@ -10,6 +10,19 @@ function on_change(input)
 	input.select();
 }
 
+function translate(data)
+{
+	for (var i = 0; i < data.length; i++)
+	{
+		var d = data[i];
+
+		if (d['receiving_status'] == 'inqueue')
+			d['receiving_status'] = '已在佇列中';
+		else if (d['receiving_status'] == 'received')
+			d['receiving_status'] = '已領取';
+	}
+}
+
 function query_prizes(scope, http, winners)
 {
 	angular.forEach(winners, function(element, idx) {
@@ -18,6 +31,7 @@ function query_prizes(scope, http, winners)
 			if (data.status == 'ok')
 			{
 				element.hasprizes = true;
+				translate(data.data);
 				element.prizes = data.data;
 			}
 			else
@@ -86,16 +100,15 @@ function query_id_fuzzy(scope, http, text)
 	});
 }
 
-function submit_received(scope, http, prize)
+function submit_queue(scope, http, prize)
 {
 	var obj = new Object();
 	obj.serial = prize.serial;
 	obj.phase_alias = prize.phase_alias;
-	obj.received = prize.received;
 
 	var json = angular.toJson(obj);
 
-	http.post('/lottery/prize_received/', json).
+	http.post('/lottery/add_queue/', json).
 	success(function (data) {
 		if (data.status == 'ok')
 		{
@@ -138,9 +151,19 @@ function employee_ctrl($scope, $http, $cookies)
 		query_id($scope, $http, text.toLowerCase());
 	};
 
-	$scope.set_received = function (prize) {
+	$scope.submit_queue = function (prize) {
 		$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
 
-		submit_received($scope, $http, prize);
+		submit_queue($scope, $http, prize);
+	};
+
+	$scope.receivable = function (prize) {
+		if (!prize.onsite)
+			return false;
+
+		if (prize.receiving_status == '')
+			return true;
+		else
+			return false;
 	};
 }
