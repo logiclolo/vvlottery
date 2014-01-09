@@ -73,3 +73,9 @@ span.error {
 	font-size: 15px;
 	display: block;
 }
+
+span.success {
+	color: blue;
+	font-size: 15px;
+	display: block;
+}

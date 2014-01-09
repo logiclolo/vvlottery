@@ -1,3 +1,5 @@
+angular.module('employee', ['ngCookies']);
+
 function on_load()
 {
 	document.getElementById('input').focus();
@@ -84,7 +86,31 @@ function query_id_fuzzy(scope, http, text)
 	});
 }
 
-function employee_ctrl($scope, $http)
+function submit_received(scope, http, prize)
+{
+	var obj = new Object();
+	obj.serial = prize.serial;
+	obj.phase_alias = prize.phase_alias;
+	obj.received = prize.received;
+
+	var json = angular.toJson(obj);
+
+	http.post('/lottery/prize_received/', json).
+	success(function (data) {
+		if (data.status == 'ok')
+		{
+			prize.errmsg = null;
+			prize.is_sync = true;
+		}
+		else
+		{
+			prize.errmsg = errmsg(data.reason);
+			prize.is_sync = false;
+		}
+	});
+}
+
+function employee_ctrl($scope, $http, $cookies)
 {
 	$scope.hasdata = false;
 	$scope.query_employee = function() {
@@ -110,5 +136,11 @@ function employee_ctrl($scope, $http)
 			return;
 
 		query_id($scope, $http, text.toLowerCase());
+	};
+
+	$scope.set_received = function (prize) {
+		$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+
+		submit_received($scope, $http, prize);
 	};
 }

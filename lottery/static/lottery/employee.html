@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
-<html ng-app>
+<html ng-app="employee">
 <head>
 <meta charset="utf-8">
 <title>Employee</title>
 <script src="angular.js"></script>
+<script src="angular-cookies.js"></script>
+<script src="errmsg.js"></script>
 <script src="employee.js"></script>
 <link rel="stylesheet" type="text/css" href="global.css">
 </head>
@@ -35,7 +37,12 @@
 						<th>獎次</th><th>類別</th><th>名稱</th><th>現場領？</th><th>已領取？</th>
 					</tr>
 					<tr ng-repeat="p in e.prizes" ng-class-odd="" ng-class-even="'even'">
-						<td>{{p.serial}}</td><td>{{p.phase}}</td><td>{{p.name}}</td><td><span ng-show="p.onsite">◎</span></td><td><input type="checkbox" ng-model="p.received" ng-show="p.onsite"></input></td>
+						<td>{{p.serial}}</td><td>{{p.phase}}</td><td>{{p.name}}</td><td><span ng-show="p.onsite">◎</span></td>
+						<td>
+							<input type="checkbox" ng-model="p.received" ng-show="p.onsite" ng-click="set_received(p)"></input>
+							<span class="error" ng-show="p.errmsg">{{p.errmsg}}</span>
+							<span class="success" ng-show="p.is_sync">已同步完成</span>
+						</td>
 					</tr>
 				</table>
 			</div>
