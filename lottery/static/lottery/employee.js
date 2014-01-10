@@ -17,7 +17,7 @@ function translate(data)
 		var d = data[i];
 
 		if (d['receiving_status'] == 'inqueue')
-			d['receiving_status'] = '已在佇列中';
+			d['receiving_status'] = '待領中';
 		else if (d['receiving_status'] == 'received')
 			d['receiving_status'] = '已領取';
 	}
