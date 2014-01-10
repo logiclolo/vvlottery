@@ -17,7 +17,7 @@ function translate(data)
 		var d = data[i];
 
 		if (d['receiving_status'] == 'inqueue')
-			d['receiving_status'] = '待領中';
+			d['receiving_status'] = '待領中 (序號 ' + d['queue_id'] + ')';
 		else if (d['receiving_status'] == 'received')
 			d['receiving_status'] = '已領取';
 	}
@@ -114,6 +114,7 @@ function submit_queue(scope, http, prize)
 		{
 			prize.errmsg = null;
 			prize.is_sync = true;
+			prize.queue_id = ' (序號 ' + data.data.queue_id + ')';
 		}
 		else
 		{

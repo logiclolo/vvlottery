@@ -42,7 +42,7 @@
 							<span ng-show="p.onsite">{{p.receiving_status}}</span>
 							<input type="button" ng-show="receivable(p)" value="領取" ng-click="submit_queue(p)" ng-disabled="p.is_sync"></input>
 							<span class="error" ng-show="p.errmsg">{{p.errmsg}}</span>
-							<span class="success" ng-show="p.is_sync">已加入佇列</span>
+							<span class="success" ng-show="p.is_sync">已加入佇列{{p.queue_id}}</span>
 						</td>
 					</tr>
 				</table>

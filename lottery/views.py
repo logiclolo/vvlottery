@@ -41,6 +41,13 @@ def get_receiving_status(obj):
 	except Queue.DoesNotExist:
 		return ''
 
+def get_queue_id(obj):
+	try:
+		return obj.queue.id
+	except Queue.DoesNotExist:
+		# This should not happen
+		return 'N/A'
+
 def fill_prize_data(obj):
 	tmp = {}
 
@@ -49,7 +56,12 @@ def fill_prize_data(obj):
 	tmp['phase'] = obj.phase.name
 	tmp['phase_alias'] = obj.phase.alias
 	tmp['onsite'] = obj.onsite
-	tmp['receiving_status'] = get_receiving_status(obj)
+
+	status = get_receiving_status(obj)
+	if status == 'inqueue':
+		tmp['queue_id'] = get_queue_id(obj)
+	tmp['receiving_status'] = status
+
 	if obj.winner:
 		tmp['winner'] = obj.winner.name
 		tmp['jobid'] = obj.winner.jobid
@@ -468,10 +480,11 @@ def add_queue(req):
 		queue_item = Queue()
 		queue_item.prize = prize
 		queue_item.save()
+		queue_id = queue_item.id
 	except Prize.DoesNotExist:
 		return response_error('Prize not found')
 
-	return response_ok([])
+	return response_ok({'queue_id': queue_id})
 
 def del_queue(req):
 	if req.method != 'POST':
