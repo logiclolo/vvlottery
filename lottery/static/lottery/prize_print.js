@@ -56,11 +56,22 @@ function query_orphan_employee(scope, http)
 	});
 }
 
+function add_callbacks(scope)
+{
+	scope.check_received = function (prize) {
+		if (prize.receiving_status == 'received')
+			return true;
+
+		return false;
+	};
+}
+
 function prize_print($scope, $http)
 {
 	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;
+	add_callbacks($scope);
 	query_by_phase($scope, $http, get_phase_alias(1));
 }
 
@@ -69,6 +80,7 @@ function prize_print2($scope, $http)
 	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;
+	add_callbacks($scope);
 	query_by_phase($scope, $http, get_phase_alias(2));
 }
 
