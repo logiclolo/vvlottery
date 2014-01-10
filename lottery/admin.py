@@ -24,6 +24,12 @@ class PrizeAdmin(admin.ModelAdmin):
 admin.site.register(Prize, PrizeAdmin)
 
 class QueueAdmin(admin.ModelAdmin):
-	list_display = ('id', 'prize')
+	list_display = ('id', 'prize_serial', 'prize_name')
+
+	def prize_serial(self, obj):
+		return obj.prize.serial
+
+	def prize_name(self, obj):
+		return obj.prize.name
 
 admin.site.register(Queue, QueueAdmin)
