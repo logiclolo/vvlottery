@@ -35,7 +35,7 @@ def get_receiving_status(obj):
 
 	try:
 		if obj.queue.done == True:
-			return 'receivied'
+			return 'received'
 		else:
 			return 'inqueue'
 	except Queue.DoesNotExist:
