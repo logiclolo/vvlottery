@@ -1,0 +1,52 @@
+h3 {
+	text-align: center;
+}
+
+table.hasdata, table.hasdata th, table.hasdata td {
+	border: 1px solid #000000;
+}
+
+table.hasdata {
+	margin-top: 30px;
+	border-collapse: collapse;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 30px;
+}
+
+table.hasdata th {
+	padding: 5px;
+	background-color: #a7c921;
+	color: #ffffff;
+}
+
+table.hasdata td {
+	padding: 5px;
+	text-align: center;
+}
+
+table.hasdata td.bigger {
+	font-size: 50px;
+	font-weight: bold;
+}
+
+table.hasdata tr.even td {
+	background-color: #eaf2d3;
+}
+
+input {
+	font-size: 30px;
+}
+
+span.error {
+	color: red;
+	font-size: 15px;
+	display: block;
+}
+
+span.success {
+	color: blue;
+	font-size: 15px;
+	display: block;
+}
