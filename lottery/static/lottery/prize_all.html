@@ -19,7 +19,7 @@
 				<th>獎次</th><th>名稱</th><th>現場領？</th>
 			</tr>
 			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
-				<td>{{p.serial}}</td><td>{{p.name}}</td><td><span ng-show="p.onsite">◎</span></td>
+				<td>{{p.serial}}</td><td>{{p.name}}</td><td class="marker"><span ng-show="p.onsite">◎</span></td>
 			</tr>
 		</table>
 	</div>

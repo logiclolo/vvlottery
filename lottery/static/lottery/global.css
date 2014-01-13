@@ -79,3 +79,8 @@ span.success {
 	font-size: 15px;
 	display: block;
 }
+
+td.marker {
+	text-align: center;
+	font-size: 20px;
+}
