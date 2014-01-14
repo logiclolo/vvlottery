@@ -295,29 +295,6 @@ def prize_input(req):
 
 	return response_ok(data)
 
-def prize_received(req):
-	data = []
-
-	if req.method != 'POST':
-		return response_error('Invalid method');
-
-	tmp = json.loads(req.body)
-	if not 'phase_alias' in tmp or not 'serial' in tmp or not 'received' in tmp:
-		return response_error('Invalid data format');
-
-	if type(tmp['received']) != types.BooleanType:
-		return response_error('Invalid data format');
-
-	try:
-		prize = Prize.objects.get(serial = tmp['serial'], phase__alias__exact = tmp['phase_alias'])
-
-		prize.received = tmp['received']
-		prize.save()
-	except Prize.DoesNotExist:
-		return response_error('Prize not found')
-
-	return response_ok(data)
-
 def __add_donator_prize(phase_alias, jobid, prize_name):
 	try:
 		phase = Phase.objects.get(alias = phase_alias)
