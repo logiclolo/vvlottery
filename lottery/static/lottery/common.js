@@ -23,9 +23,9 @@ function get_phase_name(phase)
 	if (phase == 1)
 		return '員工獎';
 	else if (phase == 2)
-		return '鹹魚翻身獎';
+		return '敗部復活獎';
 	else if (phase == 3)
-		return '地獄翻身獎';
+		return '人生勝利獎';
 	else
 		return null;
 }
