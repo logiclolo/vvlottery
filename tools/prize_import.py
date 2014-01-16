@@ -11,7 +11,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'vvlottery.settings'
 from lottery.models import Employee, Department, Prize, Presenter, Phase
 
 sheet = 1
-phases = {'phase1': u'員工獎', 'phase2': u'鹹魚翻身獎', 'phase3': u'地獄翻身獎'}
+phases = {'phase1': u'員工獎', 'phase2': u'敗部復活獎', 'phase3': u'人生勝利獎'}
 
 def usage():
 	print 'Usage: prize_import.py <Excel file>'
