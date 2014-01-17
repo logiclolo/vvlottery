@@ -152,25 +152,6 @@ def employee(req):
 
 	return response_ok(data)
 
-def prize_list_all(req):
-	data = []
-	query_phase = False
-
-	if 'phase_alias' in req.GET:
-		phase = req.GET['phase_alias']
-		query_phase = True
-
-	if query_phase:
-		plist = Prize.objects.filter(phase__alias__exact = phase).order_by('serial')
-	else:
-		plist = Prize.objects.all().order_by('serial')
-
-	for i in plist:
-		tmp = fill_prize_data(i)
-		data.append(tmp)
-
-	return response_ok(data)
-
 def prize_list(req):
 	data = []
 	idx = 0
