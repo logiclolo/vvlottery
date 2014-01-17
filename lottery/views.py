@@ -7,6 +7,15 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 import types
 
+def is_donator(obj):
+	try:
+		if obj.donator:
+			return True
+		else:
+			return False
+	except Donator.DoesNotExist:
+		return False
+
 def fill_employee_data(obj):
 	tmp = {}
 
@@ -14,6 +23,7 @@ def fill_employee_data(obj):
 	tmp['name'] = obj.name
 	tmp['department'] = obj.department.name
 	tmp['title'] = obj.title
+	tmp['is_donator'] = is_donator(obj)
 
 	return tmp
 
@@ -65,6 +75,7 @@ def fill_prize_data(obj):
 	if obj.winner:
 		tmp['winner'] = obj.winner.name
 		tmp['jobid'] = obj.winner.jobid
+		tmp['is_donator'] = is_donator(obj.winner)
 	else:
 		tmp['winner'] = 'N/A'
 		tmp['jobid'] = ''

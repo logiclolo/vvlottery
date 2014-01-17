@@ -84,3 +84,9 @@ td.marker {
 	text-align: center;
 	font-size: 20px;
 }
+
+span.donator {
+	color: red;
+	display: block;
+	font-size: 15px; 	
+}

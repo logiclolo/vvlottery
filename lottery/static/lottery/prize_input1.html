@@ -28,6 +28,7 @@
 </td>
 <td class="namefield">
 {{e.winner}}
+<span class="donator" ng-show="e.is_donator">捐贈主管</span>
 </td>
 <td ng-init="check_sync(e)">
 <image src="sync.jpg" ng-show="e.has_sync">

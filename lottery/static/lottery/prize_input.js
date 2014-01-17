@@ -100,6 +100,7 @@ function query_employee(scope, http, entry, id)
 		{
 			var tmp = data.data[0];
 			entry.winner = tmp.name;
+			entry.is_donator = tmp.is_donator;
 		}
 	});
 }
@@ -120,6 +121,7 @@ function init(scope, http, cookies, phase)
 		entry.has_sync = false;
 		entry.iserror = false;
 		entry.winner = 'N/A';
+		entry.is_donator = false;
 
 		if (!check_jobid(jobid))
 			return;
