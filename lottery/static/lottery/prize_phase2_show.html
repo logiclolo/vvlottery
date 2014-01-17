@@ -10,12 +10,21 @@
 </head>
 
 <body ng-controller="prize_phase2_ctrl">
-	<div class="content">
+	<div class="twocolumn">
 		<h2>{{phase}}</h2>
+		<div id="part1">
 		<table>
 			<tr ng-repeat="e in prizes">
 				<td>{{e.donator}}</td><td>{{e.prize}}</td>
 			</tr>
 		</table>
+		</div>
+		<div id="part2">
+		<table>
+			<tr ng-repeat="f in prizes2">
+				<td>{{f.donator}}</td><td>{{f.prize}}</td>
+			</tr>
+		</table>
+		</div>
 	</div>
 </body>
