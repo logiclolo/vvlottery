@@ -102,6 +102,13 @@ def fill_donator_data(obj):
 	else:
 		tmp['title'] = 'N/A'
 
+	prizes = obj.employee.prize_set.all()
+	if prizes:
+		status = ''
+		for p in prizes:
+			status += '%s(%d) ' % (p.phase.name, p.serial)
+		tmp['winner_status'] = status
+		
 	tmp['donated'] = obj.donated
 
 	return tmp
