@@ -80,6 +80,9 @@ function query_by_phase(scope, http, phase)
 			{
 				scope.hasdata = true;
 				scope.nodata = false;
+
+				if (phase == 'phase2')
+					data.data.reverse();
 				scope.prizes = data.data;
 			}
 		}
