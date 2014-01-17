@@ -302,7 +302,10 @@ def __add_donator_prize(phase_alias, jobid, prize_name):
 
 		prize = Prize()
 		prize.phase = phase
-		prize.name = '%s:%s' % (employee.name, prize_name)
+		if employee.title:
+			prize.name = '%s %s:%s' % (employee.name, employee.title, prize_name)
+		else:
+			prize.name = '%s:%s' % (employee.name, prize_name)
 		prize.serial = Prize.objects.filter(phase = phase).count() + 1
 		prize.onsite = True
 		prize.save()

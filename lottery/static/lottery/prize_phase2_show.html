@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+<meta charset="utf-8">
+<title>敗部復活獎</title>
+<script src="angular.js"></script>
+<script src="common.js"></script>
+<script src="prize_phase2_show.js"></script>
+<link rel="stylesheet" type="text/css" href="prize_phase2_show.css">
+</head>
+
+<body ng-controller="prize_phase2_ctrl">
+	<div class="content">
+		<h2>{{phase}}</h2>
+		<table>
+			<tr ng-repeat="e in prizes">
+				<td>{{e.donator}}</td><td>{{e.prize}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
