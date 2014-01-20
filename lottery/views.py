@@ -108,6 +108,7 @@ def fill_donator_data(obj):
 		for p in prizes:
 			status += '%s(%d) ' % (p.phase.name, p.serial)
 		tmp['winner_status'] = status
+		tmp['donate_amount'] = 30000
 		
 	tmp['donated'] = obj.donated
 
