@@ -8,14 +8,14 @@ function init_prizes(scope)
 
 	for (var i = 0; i < max_len_part1; i++)
 	{
-		var d = {donator: '', prize: ''};
+		var d = {serial: i + 1, donator: '', prize: ''};
 		tmp.push(d);
 	}
 
 	var len_part2 = max_total - max_len_part1;
 	for (var i = 0; i < len_part2; i++)
 	{
-		var d = {donator: '', prize: ''};
+		var d = {serial: i + 1 + max_len_part1, donator: '', prize: ''};
 		tmp2.push(d);
 	}
 
@@ -54,9 +54,15 @@ function query_prizes(scope, http, timeout, phase)
 					var d = split_data(data.data[i]);
 
 					if (i < max_len_part1)
+					{
+						d.serial = scope.prizes[i].serial;
 						scope.prizes[i] = d;
+					}
 					else
+					{
+						d.serial = scope.prizes2[i - max_len_part1].serial;
 						scope.prizes2[i - max_len_part1] = d;
+					}
 				}
 			}
 		}

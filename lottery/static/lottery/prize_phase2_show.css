@@ -55,6 +55,6 @@ body {
 	color: #000000;
 }
 
-td.serial, td.name {
-	width: 180px;
+td.serial {
+	width: 20px;
 }
