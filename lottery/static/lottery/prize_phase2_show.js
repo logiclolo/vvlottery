@@ -1,5 +1,5 @@
-var max_len_part1 = 18;
-var max_total = 36;
+var max_len_part1 = 23;
+var max_total = 46;
 
 function init_prize_grid(scope)
 {
