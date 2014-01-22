@@ -1,7 +1,11 @@
+body {
+	font-family: Arial,Helvetica,sans-serif;
+}
+
 div.content {
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 150px;
+	margin-top: 50px;
 	width: 80%;
 }
 
@@ -14,7 +18,7 @@ h2 {
 table {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: 100px;
+	margin-top: 90px;
 }
 
 table, table td {
@@ -25,7 +29,6 @@ table td {
 	padding: 5px;
 	font-size: 40px;
 	font-weight: bold;
-	font-family: Arial,Helvetica,sans-serif;
 	background-color: #FFFFFF;
 }
 
