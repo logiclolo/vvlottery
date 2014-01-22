@@ -80,11 +80,6 @@ def fill_prize_data(obj):
 		tmp['winner'] = 'N/A'
 		tmp['jobid'] = ''
 
-	if obj.presenter:
-		tmp['presenter'] = obj.presenter.name
-	else:
-		tmp['presenter'] = 'N/A'
-
 	return tmp
 
 def fill_donator_data(obj):
