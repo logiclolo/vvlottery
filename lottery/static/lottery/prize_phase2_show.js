@@ -37,12 +37,12 @@ function query_prizes(scope, http, timeout, phase)
 	var phase_alias = get_phase_alias(phase);
 
 	scope.phase = get_phase_name(phase);
-	init_prize_grid(scope);
 
 	http.get('/lottery/prize/?phase_alias=' + phase_alias).
 	success(function(data) {
 		if (data.status == 'ok')
 		{
+			init_prize_grid(scope);
 			if (data.data.length > 0)
 			{
 				var tmp = [];
