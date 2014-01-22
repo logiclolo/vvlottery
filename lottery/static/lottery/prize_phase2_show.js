@@ -1,7 +1,7 @@
 var max_len_part1 = 18;
 var max_total = 36;
 
-function init_prizes(scope)
+function init_prize_grid(scope)
 {
 	var tmp = [];
 	var tmp2 = [];
@@ -37,6 +37,7 @@ function query_prizes(scope, http, timeout, phase)
 	var phase_alias = get_phase_alias(phase);
 
 	scope.phase = get_phase_name(phase);
+	init_prize_grid(scope);
 
 	http.get('/lottery/prize/?phase_alias=' + phase_alias).
 	success(function(data) {
@@ -48,7 +49,6 @@ function query_prizes(scope, http, timeout, phase)
 				var tmp2 = [];
 				data.data.reverse();
 
-				init_prizes(scope);
 				for (var i = 0; i < data.data.length; i++)
 				{
 					var d = split_data(data.data[i]);
