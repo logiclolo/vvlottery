@@ -66,6 +66,7 @@ def fill_prize_data(obj):
 	tmp['phase'] = obj.phase.name
 	tmp['phase_alias'] = obj.phase.alias
 	tmp['onsite'] = obj.onsite
+	tmp['donate_amount'] = obj.donate_amount
 
 	status = get_receiving_status(obj)
 	if status == 'inqueue':
@@ -100,10 +101,12 @@ def fill_donator_data(obj):
 	prizes = obj.employee.prize_set.all()
 	if prizes:
 		status = ''
+		amount = 0
 		for p in prizes:
 			status += '%s(%d) ' % (p.phase.name, p.serial)
+			amount += p.donate_amount
 		tmp['winner_status'] = status
-		tmp['donate_amount'] = 30000
+		tmp['donate_amount'] = amount
 		
 	tmp['donated'] = obj.donated
 

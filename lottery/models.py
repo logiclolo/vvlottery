@@ -46,6 +46,7 @@ class Prize(models.Model):
 	phase = models.ForeignKey(Phase, null = True)
 	received = models.BooleanField(default = False)
 	onsite = models.BooleanField(default = False)
+	donate_amount = models.IntegerField(default = 0)
 
 	def __unicode__(self):
 		return self.name
