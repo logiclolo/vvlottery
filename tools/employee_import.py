@@ -45,14 +45,13 @@ def add_employee(row):
 	department = row[0].value
 	jobid = row[1].value
 	name = row[2].value
-	exists = False
 
 	tmp = re.sub('^A0', 'vv', jobid)
 	conv_jobid = re.sub('^B0', 'va', tmp)
 #	print '%s,%s,%s' % (conv_jobid, name, department)
 
 	try:
-		employee = Employee.objects.get(jobid = conv_jobid)
+		employee = Employee.objects.get(name = name)
 		print 'Skip %s:%s' % (jobid, name)
 		return False
 	except Employee.DoesNotExist:
