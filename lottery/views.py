@@ -3,7 +3,6 @@ from lottery.models import Employee, Presenter, Prize, Phase, Donator, Queue
 from django.http import HttpResponse
 from django.template import Context, loader
 from django import forms
-from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 import types
 
@@ -138,7 +137,6 @@ def response_ok(data):
 	out = json.dumps(result, ensure_ascii = False)
 	return HttpResponse(out, content_type = 'application/json')
 
-@ensure_csrf_cookie
 def employee(req):
 	data = []
 
@@ -229,7 +227,6 @@ def prize_print(req):
 
 	return response_ok(data)
 
-@ensure_csrf_cookie
 def prize(req):
 	data = []
 
@@ -426,7 +423,6 @@ def prize_import(req):
 	else:
 		return response_error('Invalid method')
 
-@ensure_csrf_cookie
 def queue(req):
 	data = []
 

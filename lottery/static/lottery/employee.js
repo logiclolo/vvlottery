@@ -173,8 +173,6 @@ function employee_ctrl($scope, $http, $cookies)
 	};
 
 	$scope.submit_queue = function (prize) {
-		$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-
 		submit_queue($scope, $http, prize);
 	};
 

@@ -66,7 +66,6 @@ function confirm_received(scope, http, item)
 
 function queue_ctrl($scope, $http, $cookies, $timeout)
 {
-	$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
 	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;

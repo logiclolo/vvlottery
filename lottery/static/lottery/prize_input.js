@@ -124,8 +124,6 @@ function init(scope, http, cookies, phase)
 {
 	g_http = http;
 
-	http.defaults.headers.post['X-CSRFToken'] = cookies.csrftoken;
-
 	scope.hasdata = false;
 	scope.nodata = false;
 	scope.loaddata = true;

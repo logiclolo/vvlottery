@@ -107,8 +107,6 @@ function query_donator(scope, http)
 
 function add_prize_ctrl($scope, $http, $cookies)
 {
-	$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-
 	query_donator($scope, $http);
 
 	$scope.add_prize = function () {

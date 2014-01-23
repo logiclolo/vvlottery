@@ -107,8 +107,6 @@ function orphan_ctrl($scope, $http, $cookies)
 {
 	g_http = $http;
 
-	$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-
 	$scope.loadprizedata = true;
 	$scope.loademployeedata = true;
 
