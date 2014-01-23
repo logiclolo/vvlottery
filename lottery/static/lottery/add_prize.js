@@ -37,6 +37,10 @@ function submit_prize(scope, http, obj)
 		}
 		else
 			alert(data.reason);
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -94,6 +98,10 @@ function query_donator(scope, http)
 		{
 			scope.donators = null;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 

@@ -26,6 +26,10 @@ function query_prize_all(scope, http)
 			scope.hasdata = false;
 			scope.nodata = true;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 

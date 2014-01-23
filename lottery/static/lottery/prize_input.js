@@ -29,6 +29,10 @@ function submit_winner(scope, input)
 			input.focus();
 			input.select();
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -92,6 +96,10 @@ function query_by_phase(scope, http, phase)
 			scope.nodata = true;
 			scope.prizes = null;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -105,6 +113,10 @@ function query_employee(scope, http, entry, id)
 			entry.winner = tmp.name;
 			entry.is_donator = tmp.is_donator;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 

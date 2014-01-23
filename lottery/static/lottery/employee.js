@@ -39,6 +39,10 @@ function query_prizes(scope, http, winners)
 				element.hasprizes = false;
 				element.prizes = null;
 			}
+		}).
+		error(function (data, status, headers, config) {
+			var msg = data || errmsg("Connection failure");
+			alert(msg + "\n" + config.url);
 		});
 	});
 }
@@ -59,6 +63,10 @@ function query_name(scope, http, name)
 			scope.employees = null;
 			scope.hasdata = false;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -78,6 +86,10 @@ function query_id(scope, http, id)
 			scope.employees = null;
 			scope.hasdata = false;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -97,6 +109,10 @@ function query_id_fuzzy(scope, http, text)
 			scope.employees = null;
 			scope.hasdata = false;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -121,6 +137,10 @@ function submit_queue(scope, http, prize)
 			prize.errmsg = errmsg(data.reason);
 			prize.is_sync = false;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 

@@ -32,6 +32,10 @@ function query_queue(scope, http, timeout)
 		timeout(function () {
 			query_queue(scope, http, timeout);
 		}, delay);
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -53,6 +57,10 @@ function confirm_received(scope, http, item)
 			item.is_sync = false;
 			item.errmsg = errmsg(data.reason);
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 

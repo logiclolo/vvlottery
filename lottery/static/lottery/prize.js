@@ -22,6 +22,10 @@ function query_name(scope, http, name)
 			scope.prizes = null;
 			scope.hasdata = false;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -39,6 +43,10 @@ function query_id(scope, http, id)
 			scope.prizes = null;
 			scope.hasdata = false;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 

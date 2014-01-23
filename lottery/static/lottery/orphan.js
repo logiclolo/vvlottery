@@ -19,6 +19,10 @@ function submit_winner(scope)
 		}
 		else
 			alert(errmsg(data.reason));
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -54,6 +58,10 @@ function query_orphan_prizes(scope, http)
 			scope.prizes = null;
 			scope.prize_number = 0;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -66,6 +74,10 @@ function query_employee(scope, http, entry, id)
 			var tmp = data.data[0];
 			entry.winner = tmp.name;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
@@ -84,6 +96,10 @@ function query_orphan_employee(scope, http)
 			scope.orphans = null;
 			scope.orphan_number = 0;
 		}
+	}).
+	error(function (data, status, headers, config) {
+		var msg = data || errmsg("Connection failure");
+		alert(msg + "\n" + config.url);
 	});
 }
 
