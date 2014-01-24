@@ -50,30 +50,15 @@ function query_queue(scope, http, timeout)
 	var default_retry_ticking = 5;
 	var retry_count = 5;
 
-	if (scope.retry_ticking)
+	if (scope.retry_ticking && (scope.retry_ticking - 1) > 0)
 	{
-		if (scope.retry_ticking - 1 > 0)
-		{
-			scope.retry_ticking--;
+		scope.retry_ticking--;
 
-			timeout(function () {
-				query_queue(scope, http, timeout);
-			}, delay);
+		timeout(function () {
+			query_queue(scope, http, timeout);
+		}, delay);
 
-			return;
-		}
-		else
-		{
-			scope.retry_ticking = default_retry_ticking;
-			scope.retry_count--;
-
-			if (scope.retry_count <= 0)
-			{
-				scope.retry_ticking = null;
-				scope.abort_retry = true;
-				return;
-			}
-		}
+		return;
 	}
 
 	if (scope.ticking && (scope.ticking - 1) > 0)
@@ -95,8 +80,6 @@ function query_queue(scope, http, timeout)
 			if (data.data.length == 0)
 			{
 				scope.queue = null;
-				scope.hasdata = false;
-				scope.nodata = true;
 			}
 			else
 			{
@@ -104,8 +87,6 @@ function query_queue(scope, http, timeout)
 					alter_queue(scope.queue, data.data);
 				else
 					scope.queue = data.data;
-				scope.hasdata = true;
-				scope.nodata = false;
 			}
 
 			scope.ticking = default_ticking;
@@ -115,8 +96,6 @@ function query_queue(scope, http, timeout)
 		else if (data.status == 'error')
 		{
 			scope.queue = null;
-			scope.hasdata = false;
-			scope.nodata = true;
 		}
 
 		timeout(function () {
@@ -126,6 +105,14 @@ function query_queue(scope, http, timeout)
 	error(function (data, status, headers, config) {
 		scope.ticking = null;
 		scope.retry_ticking = default_retry_ticking;
+		scope.retry_count--;
+
+		if (scope.retry_count <= 0)
+		{
+			scope.retry_ticking = null;
+			scope.abort_retry = true;
+			return;
+		}
 
 		timeout(function () {
 			query_queue(scope, http, timeout);
@@ -160,8 +147,6 @@ function confirm_received(scope, http, item)
 
 function queue_ctrl($scope, $http, $cookies, $timeout)
 {
-	$scope.hasdata = false;
-	$scope.nodata = false;
 	$scope.loaddata = true;
 
 	query_queue($scope, $http, $timeout);
