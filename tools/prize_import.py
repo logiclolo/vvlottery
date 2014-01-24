@@ -35,11 +35,12 @@ def add_phase(alias, phase):
 
 	return tmp
 
-def do_add_prize(name, serial, get_on_site):
+def do_add_prize(name, serial, get_on_site, donate_amount):
 	prize = Prize()
 	prize.serial = serial
 	prize.name = name
 	prize.onsite = get_on_site
+	prize.donate_amount = donate_amount
 
 	phase = get_phase(phases['phase1'])
 	if not phase:
@@ -52,20 +53,21 @@ def add_prize(row):
 	field = row[0].value
 	serial = int(row[1].value)
 	name = row[2].value
+	donate_amount = round(row[3].value)
 	exists = False
 
 	if field == '':
 		get_on_site = False
 	else:
 		get_on_site = True
-#	print '%s,%04d,%s' % ('true' if get_on_site else 'false', serial, name)
+#	print '%s,%04d,%d,%s' % ('true' if get_on_site else 'false', serial, donate_amount, name)
 
 	try:
 		prize = Prize.objects.get(serial = serial)
 		print 'Skip %d:%s' % (serial, name)
 		return False
 	except Prize.DoesNotExist:
-		do_add_prize(name, serial, get_on_site)
+		do_add_prize(name, serial, get_on_site, donate_amount)
 
 	return True
 
