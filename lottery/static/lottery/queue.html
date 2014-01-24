@@ -30,7 +30,7 @@
 				<td style="width:100px">{{q.winner_name}}</td>
 				<td>{{q.name}}</td>
 				<td>
-					<input type="button" value="確認" ng-disabled="q.is_sync" ng-click="confirm(q)"></input>
+					<input type="button" value="確認" ng-disabled="q.pushed" ng-click="confirm(q)"></input>
 					<span ng-show="q.is_sync" class="success">已確認</span>
 					<span ng-show="q.errmsg" class="error">{{q.errmsg}}</span>
 				</td>

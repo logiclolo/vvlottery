@@ -142,6 +142,8 @@ function confirm_received(scope, http, item)
 	error(function (data, status, headers, config) {
 		var msg = data || errmsg("Connection failure");
 		alert(msg);
+
+		item.pushed = false;
 	});
 }
 
@@ -155,6 +157,9 @@ function queue_ctrl($scope, $http, $cookies, $timeout)
 		var isok = confirm("領獎序號：" + item.id + "\n確定已領取？");
 
 		if (isok)
+		{
+			item.pushed = true;
 			confirm_received($scope, $http, item);
+		}
 	};
 }
