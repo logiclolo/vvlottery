@@ -30,13 +30,11 @@ function query_prizes(scope, http, winners)
 		success(function(data) {
 			if (data.status == 'ok')
 			{
-				element.hasprizes = true;
 				translate(data.data);
 				element.prizes = data.data;
 			}
 			else
 			{
-				element.hasprizes = false;
 				element.prizes = null;
 			}
 		}).
