@@ -15,12 +15,10 @@ function query_name(scope, http, name)
 		if (data.status == 'ok')
 		{
 			scope.prizes = data.data;
-			scope.hasdata = true;
 		}
 		else if (data.status == 'error')
 		{
 			scope.prizes = null;
-			scope.hasdata = false;
 		}
 	}).
 	error(function (data, status, headers, config) {
@@ -36,12 +34,10 @@ function query_id(scope, http, id)
 		if (data.status == 'ok')
 		{
 			scope.prizes = data.data;
-			scope.hasdata = true;
 		}
 		else if (data.status == 'error')
 		{
 			scope.prizes = null;
-			scope.hasdata = false;
 		}
 	}).
 	error(function (data, status, headers, config) {

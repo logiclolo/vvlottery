@@ -8,20 +8,17 @@ function query_by_phase(scope, http, phase)
 			if (data.data.length == 0)
 			{
 				scope.prizes = null;
-				scope.hasdata = false;
 				scope.nodata = true;
 			}
 			else
 			{
 				scope.prizes = data.data;
-				scope.hasdata = true;
 				scope.nodata = false;
 			}
 		}
 		else if (data.status == 'error')
 		{
 			scope.prizes = null;
-			scope.hasdata = false;
 			scope.nodata = true;
 		}
 	});
@@ -37,20 +34,17 @@ function query_orphan_employee(scope, http)
 			if (data.data.length == 0)
 			{
 				scope.orphans = null;
-				scope.hasdata = false;
 				scope.nodata = true;
 			}
 			else
 			{
 				scope.orphans = data.data;
-				scope.hasdata = true;
 				scope.nodata = false;
 			}
 		}
 		else
 		{
 			scope.orphans = null;
-			scope.hasdata = false;
 			scope.nodata = true;
 		}
 	});
@@ -68,7 +62,6 @@ function add_callbacks(scope)
 
 function prize_print($scope, $http)
 {
-	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;
 	add_callbacks($scope);
@@ -77,7 +70,6 @@ function prize_print($scope, $http)
 
 function prize_print2($scope, $http)
 {
-	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;
 	add_callbacks($scope);
@@ -86,7 +78,6 @@ function prize_print2($scope, $http)
 
 function prize_print3($scope, $http)
 {
-	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;
 	query_orphan_employee($scope, $http);

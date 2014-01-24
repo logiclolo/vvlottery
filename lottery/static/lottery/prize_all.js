@@ -8,13 +8,11 @@ function query_prize_all(scope, http)
 			if (data.data.length == 0)
 			{
 				scope.prizes = null;
-				scope.hasdata = false;
 				scope.nodata = true;
 			}
 			else
 			{
 				scope.prizes = data.data;
-				scope.hasdata = true;
 				scope.nodata = false;
 
 				prize_count(scope, data.data);
@@ -23,7 +21,6 @@ function query_prize_all(scope, http)
 		else if (data.status == 'error')
 		{
 			scope.prizes = null;
-			scope.hasdata = false;
 			scope.nodata = true;
 		}
 	}).
@@ -35,7 +32,6 @@ function query_prize_all(scope, http)
 
 function prize_all_ctrl($scope, $http)
 {
-	$scope.hasdata = false;
 	$scope.nodata = false;
 	$scope.loaddata = true;
 	query_prize_all($scope, $http);

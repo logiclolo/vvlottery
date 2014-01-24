@@ -76,13 +76,11 @@ function query_by_phase(scope, http, phase)
 		{
 			if (data.data.length == 0)
 			{
-				scope.hasdata = false;
 				scope.nodata = true;
 				scope.prizes = null;
 			}
 			else
 			{
-				scope.hasdata = true;
 				scope.nodata = false;
 
 				if (phase == 'phase2')
@@ -92,7 +90,6 @@ function query_by_phase(scope, http, phase)
 		}
 		else if (data.status == 'error')
 		{
-			scope.hasdata = false;
 			scope.nodata = true;
 			scope.prizes = null;
 		}
@@ -124,7 +121,6 @@ function init(scope, http, cookies, phase)
 {
 	g_http = http;
 
-	scope.hasdata = false;
 	scope.nodata = false;
 	scope.loaddata = true;
 	query_by_phase(scope, http, phase);
