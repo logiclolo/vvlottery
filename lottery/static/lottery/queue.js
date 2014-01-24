@@ -119,7 +119,7 @@ function queue_ctrl($scope, $http, $cookies, $timeout)
 	query_queue($scope, $http, $timeout);
 
 	$scope.confirm = function (item) {
-		var isok = confirm("確定已領取？");
+		var isok = confirm("領獎序號：" + item.id + "\n確定已領取？");
 
 		if (isok)
 			confirm_received($scope, $http, item);
