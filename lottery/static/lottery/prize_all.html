@@ -17,10 +17,13 @@
 		<h3 ng-show="loaddata">讀取資料中</h3>
 		<table class="hasdata" ng-show="prizes">
 			<tr>
-				<th>獎次</th><th>名稱</th><th>現場領？</th>
+				<th>獎次</th><th>名稱</th><th>30%單價</th><th>現場領？</th>
 			</tr>
 			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
-				<td>{{p.serial}}</td><td>{{p.name}}</td><td class="marker"><span ng-show="p.onsite">◎</span></td>
+				<td>{{p.serial}}</td>
+				<td>{{p.name}}</td>
+				<td>{{p.donate_amount}}</td>
+				<td class="marker"><span ng-show="p.onsite">◎</span></td>
 			</tr>
 		</table>
 	</div>
