@@ -45,7 +45,47 @@ function alter_queue(dst, src)
 
 function query_queue(scope, http, timeout)
 {
-	var delay = 5000;
+	var delay = 1000;
+	var default_ticking = 5;
+	var default_retry_ticking = 5;
+	var retry_count = 5;
+
+	if (scope.retry_ticking)
+	{
+		if (scope.retry_ticking - 1 > 0)
+		{
+			scope.retry_ticking--;
+
+			timeout(function () {
+				query_queue(scope, http, timeout);
+			}, delay);
+
+			return;
+		}
+		else
+		{
+			scope.retry_ticking = default_retry_ticking;
+			scope.retry_count--;
+
+			if (scope.retry_count <= 0)
+			{
+				scope.retry_ticking = null;
+				scope.abort_retry = true;
+				return;
+			}
+		}
+	}
+
+	if (scope.ticking && (scope.ticking - 1) > 0)
+	{
+		scope.ticking--;
+
+		timeout(function () {
+			query_queue(scope, http, timeout);
+		}, delay);
+
+		return;
+	}
 
 	http.get('/lottery/queue/').
 	success(function(data) {
@@ -67,6 +107,10 @@ function query_queue(scope, http, timeout)
 				scope.hasdata = true;
 				scope.nodata = false;
 			}
+
+			scope.ticking = default_ticking;
+			scope.retry_ticking = null;
+			scope.retry_count = retry_count;
 		}
 		else if (data.status == 'error')
 		{
@@ -80,8 +124,12 @@ function query_queue(scope, http, timeout)
 		}, delay);
 	}).
 	error(function (data, status, headers, config) {
-		var msg = data || errmsg("Connection failure");
-		alert(msg + "\n" + config.url);
+		scope.ticking = null;
+		scope.retry_ticking = default_retry_ticking;
+
+		timeout(function () {
+			query_queue(scope, http, timeout);
+		}, delay);
 	});
 }
 
