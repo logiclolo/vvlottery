@@ -10,6 +10,9 @@
 </head>
 
 <body ng-controller="slideshow_ctrl">
+	<h3 ng-show="ticking">離下次更新還有 {{ticking}} 秒</h3>
+	<h3 ng-show="retry_ticking">連線失敗，{{retry_ticking}} 秒後重試</h3>
+	<h3 ng-show="abort_retry">連線失敗，請聯絡管理員</h3>
 	<div class="content">
 		<h2>{{phase}}</h2>
 		<!--<h2>{{range_label}}</h2>-->
