@@ -140,7 +140,7 @@ function submit_queue(scope, http, prize)
 	}).
 	error(function (data, status, headers, config) {
 		var msg = data || errmsg("Connection failure");
-		alert(msg + "\n" + config.url);
+		alert(msg);
 	});
 }
 

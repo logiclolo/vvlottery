@@ -32,7 +32,7 @@ function submit_winner(scope, input)
 	}).
 	error(function (data, status, headers, config) {
 		var msg = data || errmsg("Connection failure");
-		alert(msg + "\n" + config.url);
+		alert(msg);
 	});
 }
 

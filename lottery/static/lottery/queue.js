@@ -141,7 +141,7 @@ function confirm_received(scope, http, item)
 	}).
 	error(function (data, status, headers, config) {
 		var msg = data || errmsg("Connection failure");
-		alert(msg + "\n" + config.url);
+		alert(msg);
 	});
 }
 
