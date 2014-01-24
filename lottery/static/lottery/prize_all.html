@@ -22,7 +22,7 @@
 			<tr ng-repeat="p in prizes" ng-class-odd="" ng-class-even="'even'">
 				<td>{{p.serial}}</td>
 				<td>{{p.name}}</td>
-				<td>{{p.donate_amount}}</td>
+				<td class="money">{{p.donate_amount}}</td>
 				<td class="marker"><span ng-show="p.onsite">◎</span></td>
 			</tr>
 		</table>

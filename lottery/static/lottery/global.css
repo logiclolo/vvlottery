@@ -90,3 +90,7 @@ span.donator {
 	display: block;
 	font-size: 15px; 	
 }
+
+.money {
+	text-align: right;
+}
