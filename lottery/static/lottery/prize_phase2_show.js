@@ -32,9 +32,35 @@ function split_data(data)
 
 function query_prizes(scope, http, timeout, phase)
 {
-	/* 10 seconds */
-	var delay = 10000;
+	var delay = 1000;
 	var phase_alias = get_phase_alias(phase);
+
+	/* 10 seconds */
+	var default_ticking = 10;
+	var default_retry_ticking = 5;
+	var retry_count = 5;
+
+	if (scope.retry_ticking && (scope.retry_ticking - 1) > 0)
+	{
+		scope.retry_ticking--;
+
+		timeout(function () {
+			query_prizes(scope, http, timeout, phase);
+		}, delay);
+
+		return;
+	}
+
+	if (scope.ticking && (scope.ticking - 1) > 0)
+	{
+		scope.ticking--;
+
+		timeout(function () {
+			query_prizes(scope, http, timeout, phase);
+		}, delay);
+
+		return;
+	}
 
 	scope.phase = get_phase_name(phase);
 
@@ -65,6 +91,10 @@ function query_prizes(scope, http, timeout, phase)
 					}
 				}
 			}
+
+			scope.ticking = default_ticking;
+			scope.retry_ticking = null;
+			scope.retry_count = retry_count;
 		}
 		/*
 		else if (data.status == 'error')
@@ -77,6 +107,31 @@ function query_prizes(scope, http, timeout, phase)
 		timeout(function () {
 			query_prizes(scope, http, timeout, phase);
 		}, delay);		
+	}).
+	error(function (data, status, headers, config) {
+		scope.ticking = null;
+		scope.retry_ticking = default_retry_ticking;
+		scope.retry_count--;
+
+		if (scope.retry_count <= 0)
+		{
+			scope.retry_ticking = null;
+			scope.abort_retry = true;
+
+			/* Sleep for 1 min and try to connect again */
+			timeout(function () {
+				scope.abort_retry = false;
+				scope.retry_ticking = default_retry_ticking;
+				scope.retry_count = retry_count;
+				query_prizes(scope, http, timeout, phase);
+			}, 60000);
+
+			return;
+		}
+
+		timeout(function () {
+			query_prizes(scope, http, timeout, phase);
+		}, delay);
 	});
 }
 

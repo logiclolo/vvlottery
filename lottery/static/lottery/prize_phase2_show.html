@@ -10,6 +10,9 @@
 </head>
 
 <body ng-controller="prize_phase2_ctrl">
+	<span ng-show="ticking">更新秒數：{{ticking}}</span>
+	<span ng-show="retry_ticking">連線失敗，{{retry_ticking}} 秒後重試</span>
+	<span ng-show="abort_retry">連線失敗，請聯絡管理員</span>
 	<div class="twocolumn">
 		<h2>{{phase}}</h2>
 		<div id="part1">
