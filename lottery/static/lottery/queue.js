@@ -1,5 +1,48 @@
 angular.module('queue', ['ngCookies']);
 
+function search_id(arr, ele)
+{
+	for (var i = 0; i < arr.length; i++)
+	{
+		if (arr[i].id == ele.id)
+			return true;
+	}
+
+	return false;
+}
+
+function alter_queue(dst, src)
+{
+	var to_be_removed = [];
+	var to_be_added = [];
+
+	for (var i = 0; i < dst.length; i++)
+	{
+		if (!search_id(src, dst[i]))
+			to_be_removed.push(i);
+	}
+
+	for (var i = 0; i < src.length; i++)
+	{
+		if (!search_id(dst, src[i]))
+			to_be_added.push(src[i]);
+	}
+
+	for (var i = 0; i < to_be_removed.length; i++)
+	{
+		var idx = to_be_removed[i];
+
+		dst.splice(idx, 1);
+	}
+
+	for (var i = 0; i < to_be_added.length; i++)
+	{
+		var item = to_be_added[i];
+
+		dst.push(item);
+	}
+}
+
 function query_queue(scope, http, timeout)
 {
 	var delay = 5000;
@@ -17,7 +60,10 @@ function query_queue(scope, http, timeout)
 			}
 			else
 			{
-				scope.queue = data.data;
+				if (scope.queue)
+					alter_queue(scope.queue, data.data);
+				else
+					scope.queue = data.data;
 				scope.hasdata = true;
 				scope.nodata = false;
 			}
