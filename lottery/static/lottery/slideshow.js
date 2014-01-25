@@ -88,6 +88,15 @@ function query_prizes(scope, http, idx, length, phase)
 		{
 			scope.retry_ticking = null;
 			scope.abort_retry = true;
+
+			/* Sleep for 1 min and try to connect again */
+			g_timeout(function () {
+				scope.abort_retry = false;
+				scope.retry_ticking = default_retry_ticking;
+				scope.retry_count = retry_count;
+				query_prizes(scope, http, idx, length, phase);
+			}, 60000);
+
 			return;
 		}
 
