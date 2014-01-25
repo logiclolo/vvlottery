@@ -12,32 +12,34 @@
 </head>
 
 <body ng-controller="prize_input_ctrl">
-<div class="content">
+	<div class="content">
 
-<h3 ng-show="nodata">無獎項資料</h3>
-<h3 ng-show="loaddata">讀取資料中</h3>
-<table class="hasdata" ng-show="prizes">
-<tr>
-<th>獎次</th><th>工號</th><th>姓名</th><th>已同步？</th><th>名稱</th>
-</tr>
-<tr ng-repeat="e in prizes" ng-class-odd="" ng-class-even="'even'">
-<td>{{e.serial}}</td>
-<td>
-<input type="text" class="textfield" ng-model="e.jobid" ng-change="change(e, e.jobid)" onkeypress="on_keypress(event, this)">
-<span class="error" ng-show="e.errmsg">{{e.errmsg}}</span>
-</td>
-<td class="namefield">
-{{e.winner}}
-<span class="donator" ng-show="e.is_donator">應捐 {{e.donate_amount}}</span>
-</td>
-<td ng-init="check_sync(e)">
-<image src="sync.jpg" ng-show="e.has_sync">
-<image src="unsync.jpg" ng-hide="e.has_sync">
-</td>
-<td>{{e.name}}</td>
-</tr>
-</table>
-</div>
-<div class="footer">
-</div>
+		<h3 ng-show="nodata">無獎項資料</h3>
+		<h3 ng-show="loaddata">讀取資料中</h3>
+		<table class="hasdata" ng-show="prizes">
+			<tr>
+				<th>獎次</th><th>工號</th><th>姓名</th><th>已同步？</th><th>名稱</th>
+			</tr>
+			<tr ng-repeat="e in prizes" ng-class-odd="" ng-class-even="'even'">
+				<td>{{e.serial}}</td>
+				<td>
+					<input type="text" class="textfield" ng-model="e.jobid"
+						ng-change="change(e, e.jobid)"
+						onkeypress="on_keypress(event, this)">
+					<span class="error" ng-show="e.errmsg">{{e.errmsg}}</span>
+				</td>
+				<td class="namefield">
+					{{e.winner}}
+					<span class="donator" ng-show="e.is_donator">應捐 {{e.donate_amount}}</span>
+				</td>
+				<td ng-init="check_sync(e)">
+					<image src="sync.jpg" ng-show="e.has_sync">
+					<image src="unsync.jpg" ng-hide="e.has_sync">
+				</td>
+				<td>{{e.name}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="footer">
+	</div>
 </body>
