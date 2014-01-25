@@ -58,7 +58,7 @@ span.version {
 	margin-top: 60px;
 }
 
-div#test {
+div#outer {
 	border: solid 1px #D3D3D3;
 	height: 800px;
 	padding-left: 10px;
