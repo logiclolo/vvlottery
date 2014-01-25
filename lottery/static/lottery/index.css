@@ -58,6 +58,12 @@ span.version {
 	margin-top: 60px;
 }
 
+span.title {
+	margin-top: 10px;
+	font-size: 20px;
+	float: left;
+}
+
 div#outer {
 	border: solid 1px #D3D3D3;
 	height: 800px;
