@@ -25,7 +25,6 @@ function submit_winner(scope, input)
 		else
 		{
 			scope.e.errmsg = errmsg(data.reason);
-			scope.e.iserror = true;
 			input.focus();
 			input.select();
 		}
@@ -128,9 +127,9 @@ function init(scope, http, cookies, phase)
 	scope.phase = phase;
 	scope.change = function(entry, jobid) {
 		entry.has_sync = false;
-		entry.iserror = false;
 		entry.winner = 'N/A';
 		entry.is_donator = false;
+		entry.errmsg = null;
 
 		if (!check_jobid(jobid))
 			return;
