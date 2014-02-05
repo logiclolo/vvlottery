@@ -11,7 +11,7 @@
 
 <body ng-controller="prize_print2">
 	<div class="content">
-		<h3 ng-show="prizes">共 {{prizes.length}} 筆資料 (已領：{{received_count}}，未領 {{remaining_count}})</h3>
+		<h3 ng-show="prizes">共 {{prizes.length}} 筆資料 (已領: {{received_count}}，未領: {{remaining_count}})</h3>
 		<input type="button" onclick="window.print()" value="列印清單" ng-show="prizes" style="margin-bottom:10px"/>
 		<h3 ng-show="nodata">無獎項資料</h3>
 		<h3 ng-show="loaddata">讀取資料中</h3>
