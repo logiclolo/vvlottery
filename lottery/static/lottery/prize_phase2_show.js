@@ -77,6 +77,9 @@ function query_prizes(scope, http, timeout, phase)
 
 				for (var i = 0; i < data.data.length; i++)
 				{
+					if (i >= max_total)
+						break;
+
 					var d = split_data(data.data[i]);
 
 					if (i < max_len_part1)
