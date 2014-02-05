@@ -156,7 +156,7 @@ def employee(req):
 		elist = []
 		tmp = Employee.objects.all().order_by('jobid')
 		for p in tmp:
-			if p.prize_set.count() == 0:
+			if p.prize_set.exclude(phase__alias = 'phase2').count() == 0:
 				elist.append(p)
 	else:
 		elist = Employee.objects.all().order_by('jobid')
