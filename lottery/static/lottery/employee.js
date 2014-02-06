@@ -93,6 +93,9 @@ function query_id(scope, http, id)
 
 function query_id_fuzzy(scope, http, text)
 {
+	if (text != scope.input)
+		return;
+
 	http.get('/lottery/employee/?fuzzy_id=' + text).
 	success(function(data) {
 		if (data.status == 'ok')
@@ -142,7 +145,7 @@ function submit_queue(scope, http, prize)
 	});
 }
 
-function employee_ctrl($scope, $http, $cookies)
+function employee_ctrl($scope, $http, $cookies, $timeout)
 {
 	$scope.hasdata = false;
 	$scope.query_employee = function() {
@@ -155,7 +158,11 @@ function employee_ctrl($scope, $http, $cookies)
 				return;
 
 			if (text.search(/\D/) < 0)
-				query_id_fuzzy($scope, $http, text);			
+			{
+				$timeout(function () {
+					query_id_fuzzy($scope, $http, text);
+				}, 400);
+			}
 			else
 				query_name($scope, $http, text);
 		}
