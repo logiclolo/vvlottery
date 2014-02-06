@@ -30,7 +30,7 @@ function submit_winner(scope, input)
 		}
 	}).
 	error(function (data, status, headers, config) {
-		var msg = data || errmsg("Connection failure");
+		var msg = errmsg("Connection failure") + ": " + status;
 		alert(msg);
 	});
 }
