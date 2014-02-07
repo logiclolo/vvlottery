@@ -12,7 +12,7 @@
 <body ng-controller="prize_print3">
 	<div class="content">
 		<h3 ng-show="orphans">共 {{orphans.length}} 筆資料</h3>
-		<input type="button" onclick="window.print()" value="列印清單" ng-show="prizes" style="margin-bottom:10px"/>
+		<input type="button" onclick="window.print()" value="列印清單" ng-show="orphans" style="margin-bottom:10px"/>
 		<h3 ng-show="nodata">無獎項資料</h3>
 		<h3 ng-show="loaddata">讀取資料中</h3>
 		<table class="hasdata" ng-show="orphans">
