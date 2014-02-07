@@ -19,7 +19,7 @@ function alter_queue(dst, src)
 	for (var i = 0; i < dst.length; i++)
 	{
 		if (!search_id(src, dst[i]))
-			to_be_removed.push(i);
+			to_be_removed.push(dst[i]);
 	}
 
 	for (var i = 0; i < src.length; i++)
@@ -30,9 +30,16 @@ function alter_queue(dst, src)
 
 	for (var i = 0; i < to_be_removed.length; i++)
 	{
-		var idx = to_be_removed[i];
+		var item = to_be_removed[i];
 
-		dst.splice(idx, 1);
+		for (var j = 0; j < dst.length; j++)
+		{
+			if (dst[j].id == item.id)	
+			{
+				dst.splice(j, 1);
+				break;
+			}
+		}
 	}
 
 	for (var i = 0; i < to_be_added.length; i++)
